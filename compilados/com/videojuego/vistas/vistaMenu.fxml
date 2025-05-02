@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorMenu">
+   <children>
+      <Text layoutX="40.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elija el nivel que quieres jugar." textAlignment="CENTER" wrappingWidth="228.0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Text>
+
+      <Button fx:id="btnNivel1" layoutX="104.0" layoutY="100.0" mnemonicParsing="false" onAction="#seleccionarNivel" text="Nivel 1" />
+      <Button fx:id="btnNivel2" layoutX="104.0" layoutY="150.0" mnemonicParsing="false" onAction="#seleccionarNivel" text="Nivel 2" />
+      <Button fx:id="btnNivel3" layoutX="104.0" layoutY="200.0" mnemonicParsing="false" onAction="#seleccionarNivel" text="Nivel 3" />
+      <Button fx:id="btnNivel4" layoutX="104.0" layoutY="250.0" mnemonicParsing="false" onAction="#seleccionarNivel" text="Nivel 4" />
+   </children>
+</AnchorPane>

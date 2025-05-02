@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorSplash">
+   <children>
+      <ImageView fitHeight="288.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../fondo_splash.png" />
+         </image>
+      </ImageView>
+      <Text fill="BLACK" layoutX="127.0" layoutY="58.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="JUEGO DE LABERINTOS" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="38.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnComenzar" layoutX="225.0" layoutY="154.0" mnemonicParsing="false" onAction="#ventanaAccesoUsuario" prefHeight="44.0" prefWidth="168.0" style="-fx-font-weight: bold; -fx-background-color: #ff3f50;" text="JUGAR" textFill="WHITE" />
+   </children>
+</AnchorPane>
