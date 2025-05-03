@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.text.Font;
 import java.io.IOException;
 
 public class ControladorVistas {
@@ -16,14 +17,17 @@ public class ControladorVistas {
 		this.ventana = ventana;
 
 		vista1 = cargarVista1();
+		//vista1.getStylesheets().add(getClass().getResource("/com/videojuego/vistas/estilo.css").toExternalForm());
 		ventana.setScene(vista1);
 		ventana.setTitle("Inicio videojuego");
 		ventana.show();
 	}
 
 	public Scene cargarVista1(){
-	   	try{
+	   	try{  
+	   		Font.loadFont(getClass().getResourceAsStream("/PressStart2P-Regular.ttf"), 10);      	
         	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/pantalla_splash.fxml"));
+
         	Parent raiz = fxmlLoader.load();
 			vista1 = new Scene(raiz);
 		}
