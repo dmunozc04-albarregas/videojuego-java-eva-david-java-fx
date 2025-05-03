@@ -72,6 +72,8 @@ public class ControladorAccesoUsuario {
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.initOwner(nombreUsuarioAComprobar.getScene().getWindow());
 
+            Stage stageActual = (Stage) nombreUsuarioAComprobar.getScene().getWindow();
+            stageActual.close();
             modalStage.showAndWait();
 
         } catch (IOException e) {

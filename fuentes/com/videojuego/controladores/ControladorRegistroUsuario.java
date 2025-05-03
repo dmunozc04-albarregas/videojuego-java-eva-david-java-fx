@@ -49,6 +49,30 @@ public class ControladorRegistroUsuario{
         else {
             jugador.crearJugador(nombreUsuario, correoUsuario);
             mostrarAlerta("Jugador creado correctamente, entrando al juego...");
+            ventanaControladorMenu();
+        }
+    }
+
+     private void ventanaControladorMenu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaMenu.fxml"));
+            Parent raizMenu = loader.load();
+
+            Scene escenaMenu = new Scene(raizMenu);
+            
+            Stage menu = new Stage();
+            menu.setScene(escenaMenu);
+            menu.setTitle("Menú juego");
+
+            menu.initModality(Modality.APPLICATION_MODAL);
+
+            Stage ventanaActual = (Stage) btnRegistro.getScene().getWindow();
+            ventanaActual.close();
+            menu.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("ERROR al cargar la ventana del menú.");
         }
     }
 

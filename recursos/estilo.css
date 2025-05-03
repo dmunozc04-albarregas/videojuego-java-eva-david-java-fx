@@ -1,5 +1,12 @@
 .titulo {
-    -fx-font-family: 'Press Start 2P Regular';
-    -fx-font-size: 38px;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+}
+
+.boton-jugar {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
+    -fx-background-color: #b03311;
+    -fx-text-fill: white;
 }
