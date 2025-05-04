@@ -2,6 +2,7 @@ package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.modelos.Escenario;
+import com.videojuego.modelos.BDLaberinto;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -79,6 +80,7 @@ public class ControladorEscenario {
     }
 
     private void inicializarVista() {
+    	BDLaberinto.crearTabla();
     	//Cargamos las vistas del Controlador
 		vista1 = cargarVista(this, "vista1");
 		vista2 = cargarVista(this, "vista2");
@@ -213,7 +215,7 @@ public class ControladorEscenario {
     }
 
     private void moverPersonajeConAnimacion(int nuevaFila, int nuevaCol) {
-    	stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
+    	//stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
 
     	// Evitar movimiento redundante
     	if (filaPersonaje == nuevaFila && colPersonaje == nuevaCol) {
@@ -265,8 +267,10 @@ public class ControladorEscenario {
     }
 
     private void terminarNivel() {
+    	BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
+        	//ventanaTop10();
         	ventana.close();
 	        controladorMenu.mostrar();
     	});
@@ -280,5 +284,18 @@ public class ControladorEscenario {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
+    /*private void ventanaTop10() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/top10.fxml"));
+			Parent root = loader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Top 10 jugadores");
+			stage.setScene(new Scene(root));
+			stage.show();
+    	} catch (IOException e) {
+        	e.printStackTrace(); 
+    	}	
+    }*/
 
 }

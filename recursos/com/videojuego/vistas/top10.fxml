@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.ControladorTop10">
+    <TableView fx:id="tablaTop10" layoutX="20" layoutY="20" prefHeight="300" prefWidth="360">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Jugador" prefWidth="180" />
+            <TableColumn fx:id="colPuntos" text="Puntos" prefWidth="180" />
+        </columns>
+    </TableView>
+</AnchorPane>

@@ -22,6 +22,7 @@ import java.io.Serializable;
 public class Jugador implements Serializable{
 	private String nombreUsuario;
 	private String email;
+	private int puntos;
 	private int fila; // Agregado: posición fila del jugador
     private int columna; // Agregado: posición columna del jugador
 
@@ -31,6 +32,7 @@ public class Jugador implements Serializable{
 	public Jugador(){
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
+		this.puntos = puntos;
 		this.fila = fila;
         this.columna = columna;
 	}
@@ -39,12 +41,20 @@ public class Jugador implements Serializable{
 	 * Constructor parametrizado de la clase Jugador.
 	 * @param nombreUsuario Nombre de usuario del jugador.
 	 * @param email Correo electrónico del jugador.
-	 * @param fila Posición fila del jugador.
-     * @param columna Posición columna del jugador.
 	 */
 	public Jugador(String nombreUsuario, String email){
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
+	}
+
+	/**
+	 * Constructor parametrizado de la clase Jugador.
+	 * @param nombreUsuario Nombre de usuario del jugador.
+	 * @param puntos Puntos del jugador.
+	 */
+	public Jugador(String nombreUsuario, int puntos){
+		this.nombreUsuario = nombreUsuario;
+		this.puntos = puntos;
 	}
 
 	/**
@@ -133,6 +143,13 @@ public class Jugador implements Serializable{
 	public String getEmail(){
 		return email;
 	}
+
+	/**
+	 * Método para obtener los puntos del jugador del jugador.
+	 */
+	public int getPuntos() {
+        return puntos;
+    }
 
 	/**
      * Getter para la posición fila del jugador.
