@@ -7,22 +7,22 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="484.0" minWidth="645.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorMenu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="484.0" minWidth="645.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorMenu">
    <children>
       <ImageView fitHeight="514.0" fitWidth="862.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../nive.jpg" />
          </image>
       </ImageView>
-      <Text fill="#fcfdae" layoutX="349.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elija nivel:" wrappingWidth="228.0">
+      <Text fill="#fcfdae" layoutX="300.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Elija nivel:">
          <font>
             <Font name="Calibri Bold" size="30.0" />
          </font>
       </Text>
 
-      <Button fx:id="btnNivel1" layoutX="349.0" layoutY="131.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" text="Nivel fácil" />
-      <Button fx:id="btnNivel2" layoutX="349.0" layoutY="220.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" text="Nivel medio" />
-      <Button fx:id="btnNivel3" layoutX="349.0" layoutY="306.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" text="Nivel medio alto" />
-      <Button fx:id="btnNivel4" layoutX="349.0" layoutY="392.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" text="Nivel alto" />
+      <Button fx:id="btnNivel1" layoutX="314.0" layoutY="130.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel fácil" />
+      <Button fx:id="btnNivel2" layoutX="307.0" layoutY="219.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel medio" />
+      <Button fx:id="btnNivel3" layoutX="307.0" layoutY="304.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="46.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel medio alto" />
+      <Button fx:id="btnNivel4" layoutX="307.0" layoutY="389.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel alto" />
    </children>
 </AnchorPane>

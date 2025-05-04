@@ -1,3 +1,8 @@
+package com.videojuego.controladores;
+
+import com.videojuego.modelos.Jugador;
+import com.videojuego.modelos.Escenario;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -28,9 +33,9 @@ public class ControladorEscenario {
 	private GridPane gridPane; //Organiza los componentes en filas y columnas, similar a una tabla.
 
 	private StackPane[][] stackPanes;
-	Path rutaEscenario = Paths.get("escenario1.txt");	
-	private Integer ancho = 0;
-	private Integer alto = 0;
+	Path rutaEscenario;	
+	int alto;
+	int ancho;
 	private int filaPersonaje = 1;
 	private int colPersonaje = 1;
 
@@ -38,16 +43,35 @@ public class ControladorEscenario {
 	private ImageView ivPersonaje;
 
 	private static final Integer LADO = 28;
+	
+	private Escenario escenario;
+	private Jugador jugador;
+
+	public ControladorEscenario(){}
 
 	public ControladorEscenario(Stage ventana) {
-		
-		cargarDimensiones(rutaEscenario);
-		stackPanes = new StackPane[alto][ancho];
-		imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
+		try{
+			this.ventana = ventana;
+        	cargarEscenario(rutaEscenario);
+        	inicializarVista();
+        }catch(IOException e) {
+        	e.printStackTrace();
+        	System.out.println("Error al cargar el escenario");
+        }
+    }
 
-		this.ventana = ventana;
+    private void cargarEscenario(Path rutaEscenario) throws IOException{
+    	 // Cargar escenario y sus dimensiones
+        this.escenario = new Escenario(rutaEscenario);
+        alto = escenario.getAlto();
+        ancho = escenario.getAncho();
+        escenario.cargarDimensiones(rutaEscenario);
+        stackPanes = new StackPane[alto][ancho];
+        imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
+    }
 
-		//Cargamos las vistas del Controlador
+    private void inicializarVista() {
+    	//Cargamos las vistas del Controlador
 		vista1 = cargarVista(this, "vista1");
 		vista2 = cargarVista(this, "vista2");
 
@@ -58,133 +82,71 @@ public class ControladorEscenario {
 
 		crearGrid(alto, ancho);
 
-		vista1.setOnKeyPressed(event -> {
-    // Si la tecla presionada es una de las teclas de dirección
-    switch (event.getCode()) {
-        case UP:
-            if (filaPersonaje > 0) {
-                moverPersonaje(filaPersonaje - 1, colPersonaje); // Mueve hacia arriba
-            }
-            break;
-        case DOWN:
-            if (filaPersonaje < alto - 1) {
-                moverPersonaje(filaPersonaje + 1, colPersonaje); // Mueve hacia abajo
-            }
-            break;
-        case LEFT:
-            if (colPersonaje > 0) {
-                moverPersonaje(filaPersonaje, colPersonaje - 1); // Mueve hacia la izquierda
-            }
-            break;
-        case RIGHT:
-            if (colPersonaje < ancho - 1) {
-                moverPersonaje(filaPersonaje, colPersonaje + 1); // Mueve hacia la derecha
-            }
-            break;
-        default:
-            return; // No hacer nada si la tecla no es de movimiento
+		// Configurar controles de teclado
+        configurarControlesTeclado();
+
+        // Inicializar la ventana
+        ventana.setScene(vista1);
+        ventana.setTitle("Laberinto");
+        ventana.show();
+
+        // Mostrar el escenario
+        mostrarEscenario(escenario.getMapa());
     }
-});
 
-
-
-		ventana.setScene(vista1);
-		ventana.setTitle("Laberinto");
-		ventana.show();
-
-		
-		iniciarJuego(rutaEscenario);
-	}
-
-	private void cargarDimensiones(Path rutaArchivo) {
-		try {
-	       	List<String> lineas = Files.readAllLines(rutaArchivo);
-        	
-        	// Imprimir las primeras líneas para verificar el contenido del archivo
-        	//System.out.println("Contenido del archivo:");
-        	for (String linea : lineas) {
-            	//System.out.println(linea);
-        	}
-
-        	String primeraLinea = lineas.get(0); // Obtener la primera línea
-        	String[] dimensiones = primeraLinea.split(" "); // Separar las dimensiones por espacio
-        	
-        	//System.out.println("Dimensiones leídas: " + dimensiones[0] + " x " + dimensiones[1]);
-
-        	ancho = Integer.parseInt(dimensiones[0]); // Asignar el ancho
-        	alto = Integer.parseInt(dimensiones[1]); // Asignar el alto
-    	} catch (IOException e) {
-        	e.printStackTrace();
-    	}
-	}
-
-	public char[][] cargarEscenario(Path rutaArchivo) throws IOException {
-    	List<String> lineas = Files.readAllLines(rutaArchivo);
-
-    	// Ignorar la primera línea
-    	lineas = lineas.subList(1, lineas.size()); 
-
-	    List<char[]> mapaLista = new ArrayList<>();
-
-    	for (String linea : lineas) {
-        	String[] elementos = linea.trim().split(" ");
-        	List<Character> fila = new ArrayList<>();
-	        for (String elemento : elementos) {
-    	        int cantidad = Integer.parseInt(elemento.substring(0, elemento.length() - 1));
-        	    char tipo = elemento.charAt(elemento.length() - 1);
-            	for (int i = 0; i < cantidad; i++) {
-                	fila.add(tipo);
-            	}
-        	}
-
-        	// Convertimos a array de chars
-        	char[] filaArray = new char[fila.size()];
-        	for (int i = 0; i < fila.size(); i++) {
-            	filaArray[i] = fila.get(i);
-        	}
-
-        	mapaLista.add(filaArray);
-    	}
-
-    	// Convertimos a matriz
-    	char[][] mapa = new char[mapaLista.size()][];
-    	for (int i = 0; i < mapaLista.size(); i++) {
-        	mapa[i] = mapaLista.get(i);
-    	}
-
-    	return mapa;
+    private void configurarControlesTeclado() {
+    	vista1.setOnKeyPressed(event -> {
+    		// Si la tecla presionada es una de las teclas de dirección
+    		switch (event.getCode()) {
+        		case UP:
+            		if (filaPersonaje > 0) {
+                		moverPersonaje(filaPersonaje - 1, colPersonaje); // Mueve hacia arriba
+            		}
+            	break;
+        		case DOWN:
+            		if (filaPersonaje < alto - 1) {
+                		moverPersonaje(filaPersonaje + 1, colPersonaje); // Mueve hacia abajo
+            		}
+            		break;
+        		case LEFT:
+            		if (colPersonaje > 0) {
+                		moverPersonaje(filaPersonaje, colPersonaje - 1); // Mueve hacia la izquierda
+            		}
+            		break;
+        		case RIGHT:
+            		if (colPersonaje < ancho - 1) {
+                		moverPersonaje(filaPersonaje, colPersonaje + 1); // Mueve hacia la derecha
+            		}
+            		break;
+        		default:
+            		return; // No hacer nada si la tecla no es de movimiento
+    		}
+		});
 	}
 
 	public void mostrarEscenario(char[][] mapa) {
-	    //System.out.println("Dimensiones del escenario: " + mapa[0].length + " x " + mapa.length);
-	   	for (int alto = 0; alto < mapa.length; alto++) {
-    	    for (int ancho = 0; ancho < mapa[alto].length; ancho++) {
-        	   // char tipo = mapa[alto][ancho];
-
-            	// Crear un ImageView para cada celda
-            	//ImageView imageView = new ImageView(imgEscenario);
-         	    ImageView imageView1 = (ImageView) stackPanes[alto][ancho].getChildren().get(0);
-            	imageView1.setViewport(obtenerViewport(mapa[alto][ancho]));  // Establecer el área de la imagen según el tipo
-  				imageView1.setFitWidth(30.2);
-            	imageView1.setFitHeight(40.2);
-            	imageView1.setPreserveRatio(false);
-            	imageView1.setImage(imgEscenario);
+	   	for (int i = 0; i < mapa.length; i++) {
+    	    for (int j = 0; j < mapa[i].length; j++) {
+         	    ImageView imageView = (ImageView) stackPanes[i][j].getChildren().get(0);
+        		imageView.setViewport(obtenerViewport(mapa[i][j]));
+        		imageView.setFitWidth(30.2);
+        		imageView.setFitHeight(40.2);
+        		imageView.setPreserveRatio(false);
+        		imageView.setImage(imgEscenario);
     		}
     	}
-    	//Creación del Personaje
-				Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje_animado.gif"));
-				ivPersonaje = new ImageView(imgPersonaje);
-				ivPersonaje.setFitHeight(30);
-				ivPersonaje.setPreserveRatio(true);
-				//Rectangle2D vpPersonaje = new Rectangle2D(1*100, 2*100, 100, 100);
-				//ivPersonaje.setViewport(vpPersonaje);
-
-
-  				//System.out.println(obtenerViewport(mapa[alto][ancho]));
-  				// Colocar el ImageView en el GridPane
-            	//gridPane.add(imageView, ancho, alto);  // Agregar la 
-    	moverPersonaje(1, 1);
+    	inicializarPersonaje();
+  	   	moverPersonaje(1, 1);
 	}
+
+    private void inicializarPersonaje() {
+        Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje_animado.gif"));
+        ivPersonaje = new ImageView(imgPersonaje);
+        ivPersonaje.setFitHeight(30);
+        ivPersonaje.setPreserveRatio(true);
+        //Rectangle2D vpPersonaje = new Rectangle2D(1*100, 2*100, 100, 100);
+		//ivPersonaje.setViewport(vpPersonaje);
+    }
 
 	private Rectangle2D obtenerViewport(char tipo) {
 	    switch (tipo) {
@@ -200,62 +162,56 @@ public class ControladorEscenario {
            		return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
         	default:
             	return new Rectangle2D(4.5*LADO, 7* LADO, LADO, LADO);
-        	//default:
-            //	return new Rectangle2D(4*LADO, 2*LADO, LADO, LADO); // genérico
     	}
 	}
 
 	private void crearGrid(Integer alto, Integer ancho) {
 		for(int i = 0; i < alto; i++) {
-			//RowConstraints rowConstraints = new RowConstraints();
-        	//rowConstraints.setPercentHeight(100.0 / alto); // Asegura que se distribuyan equitativamente
-        	gridPane.getRowConstraints().add(new RowConstraints()); //128 es lo pixeles que quieres en la imagen
+        	gridPane.getRowConstraints().add(new RowConstraints()); 
 		}
 		for(int i = 0; i < ancho; i++) {
-			ColumnConstraints columnConstraints = new ColumnConstraints();
-        	//columnConstraints.setPercentWidth(100.0 / ancho); // Asegura que se distribuyan equitativamente
-        	gridPane.getColumnConstraints().add(new ColumnConstraints()); //esto es en el caso que quieras un cuadrado.
+        	gridPane.getColumnConstraints().add(new ColumnConstraints()); 
 		}
 		for(int i = 0; i < alto; i++) {
 			for(int j = 0; j < ancho; j++) {
-				StackPane stackPane = new StackPane();   //Poner una imagen encima de otra.
-				//stackPane.setStyle("-fx-border-color: pink; -fx-border-width: 1;");
-				stackPanes[i][j] = stackPane;
-				ImageView imageView = new ImageView(imgEscenario);
-				imageView.setFitWidth(60);
-				imageView.setFitHeight(60);
-				imageView.setPreserveRatio(true);
-				stackPane.getChildren().add(imageView);
-				gridPane.add(stackPane, j, i);
+				crearStackPane(i, j);
 			}
 		}
 	}
 
-
+	private void crearStackPane(int fila, int columna) {
+        StackPane stackPane = new StackPane();
+        stackPanes[fila][columna] = stackPane;
+        ImageView imageView = new ImageView(imgEscenario);
+        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        imageView.setPreserveRatio(true);
+        stackPane.getChildren().add(imageView);
+        gridPane.add(stackPane, columna, fila);
+    }
 
 	private void moverPersonaje(int nuevaFila, int nuevaCol) {
-    stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
+    	stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
 
-    // Evitar movimiento redundante
-    if (filaPersonaje == nuevaFila && colPersonaje == nuevaCol) {
-        return;
-    }
+    	// Evitar movimiento redundante
+    	if (filaPersonaje == nuevaFila && colPersonaje == nuevaCol) {
+        	return;
+    	}
 
-    // Eliminar de la celda anterior
-    stackPanes[filaPersonaje][colPersonaje].getChildren().remove(ivPersonaje);
+    	// Eliminar de la celda anterior
+    	stackPanes[filaPersonaje][colPersonaje].getChildren().remove(ivPersonaje);
 
-    // Añadir a la nueva celda si no está ya
-    if (!stackPanes[nuevaFila][nuevaCol].getChildren().contains(ivPersonaje)) {
-        stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
-    }
+    	// Añadir a la nueva celda si no está ya
+    	if (!stackPanes[nuevaFila][nuevaCol].getChildren().contains(ivPersonaje)) {
+        	stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
+    	}
 
-    // Actualizar posición
-    filaPersonaje = nuevaFila;
-    colPersonaje = nuevaCol;
-}
+    	// Actualizar posición
+    	filaPersonaje = nuevaFila;
+    	colPersonaje = nuevaCol;
+	}
 
-
-	public void iniciarJuego(Path rutaEscenario) {
+	/*public void iniciarJuego(Path rutaEscenario) {
 		try{
 			char[][] mapa = cargarEscenario(rutaEscenario);
 
@@ -269,7 +225,7 @@ public class ControladorEscenario {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	private Scene cargarVista(ControladorEscenario controlador, String nombre) {
         Scene vista = null;

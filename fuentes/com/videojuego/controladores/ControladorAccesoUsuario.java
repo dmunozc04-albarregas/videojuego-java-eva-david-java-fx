@@ -106,6 +106,8 @@ public class ControladorAccesoUsuario {
 
             menu.initModality(Modality.APPLICATION_MODAL);
 
+            Stage ventanaActual = (Stage) nombreUsuarioAComprobar.getScene().getWindow();
+            ventanaActual.close();
             menu.showAndWait();
 
         } catch (IOException e) {

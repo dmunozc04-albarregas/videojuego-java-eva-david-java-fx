@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 import java.io.IOException;
 import javafx.scene.text.Text;
 
@@ -45,6 +46,17 @@ public class ControladorMenu {
 
     public int getNivel() {
         return nivel;
+    }
+
+    @FXML
+    public void initialize() {
+        try {
+            // Cargar la fuente personalizada en el controlador
+            Font.loadFont(getClass().getResource("/PressStart2P.ttf").toExternalForm(), 10);
+        } catch (Exception e) {
+            // Si ocurre un error al cargar la fuente, se captura y muestra el mensaje de error
+            e.printStackTrace();
+        }
     }
 
     @FXML
