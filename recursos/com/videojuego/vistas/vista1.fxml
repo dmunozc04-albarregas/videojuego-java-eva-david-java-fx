@@ -5,7 +5,7 @@
 
 <HBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-      <GridPane fx:id="gridPane" minHeight="400.0" maxHeight="400.0" maxWidth="1200.0" minWidth="1200.0">
+      <GridPane fx:id="gridPane" minHeight="400.0" maxHeight="400.0" maxWidth="1250.0" minWidth="1250.0">
       </GridPane>
 	</children>
 </HBox>

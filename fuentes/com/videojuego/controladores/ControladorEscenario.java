@@ -137,7 +137,7 @@ public class ControladorEscenario {
     		}
     	}
     	inicializarPersonaje();
-  	   	moverPersonaje(1, 1);
+  	   	moverPersonaje(1, 0);
 	}
 
     private void inicializarPersonaje() {
@@ -161,6 +161,8 @@ public class ControladorEscenario {
             	return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
         	case 'B':
            		return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
+           	case 'P':
+           		return new Rectangle2D(2.35*LADO, 1.8*LADO, LADO, LADO);
         	default:
             	return new Rectangle2D(4.5*LADO, 7* LADO, LADO, LADO);
     	}
