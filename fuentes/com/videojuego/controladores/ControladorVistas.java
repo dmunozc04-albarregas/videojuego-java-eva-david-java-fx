@@ -16,6 +16,8 @@ public class ControladorVistas {
 	public ControladorVistas(Stage ventana){
 		this.ventana = ventana;
 
+	    Font.loadFont(getClass().getClassLoader().getResourceAsStream("PressStart2P.ttf"), 10);
+
 		vista1 = cargarVista1();
 		vista1.getStylesheets().add(getClass().getResource("/estilo.css").toExternalForm());
 		ventana.setScene(vista1);
