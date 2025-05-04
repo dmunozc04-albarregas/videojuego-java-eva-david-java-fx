@@ -1,6 +1,7 @@
 package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
+import com.videojuego.controladores.ControladorEscenario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +13,12 @@ import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import java.io.IOException;
 import javafx.scene.text.Text;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ControladorMenu {
     private Jugador jugador = new Jugador();
+    private ControladorEscenario controladorEscenario;
     //private ControladorEscenario controladorEscenario;
     int nivel;
 
@@ -61,25 +65,26 @@ public class ControladorMenu {
 
     @FXML
     private void seleccionarNivel(ActionEvent event) {
+        //Path rutaPredeterminada = "/com/videojuego/escenario/";
         Button boton = (Button) event.getSource();
-        int nivel = Integer.parseInt(boton.getText().replace("Nivel ", ""));
+        //int nivel = Integer.parseInt(boton.getText().replace("Nivel ", ""));
         //int nivel;
 
         Stage stage = (Stage) boton.getScene().getWindow();
 
-        /*if(boton == btnNivel1) {
-            iniciarJuego(1, stage);
+        if(boton == btnNivel1) {
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario1.txt"));
         }
 
         if(boton == btnNivel2) {
-            iniciarJuego(2, stage);
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario2.txt"));
         }
         if(boton == btnNivel3) {
-            iniciarJuego(3, stage);
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario3.txt"));
         }
         if(boton == btnNivel4) {
-            iniciarJuego(4, stage);
-        }*/
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario4.txt"));
+        }
     }
 
     /*private void iniciarJuego(int nivel, Stage stage) {

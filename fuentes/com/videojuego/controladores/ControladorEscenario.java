@@ -49,7 +49,7 @@ public class ControladorEscenario {
 
 	public ControladorEscenario(){}
 
-	public ControladorEscenario(Stage ventana) {
+	public ControladorEscenario(Stage ventana, Path rutaEscenario) {
 		try{
 			this.ventana = ventana;
         	cargarEscenario(rutaEscenario);
@@ -87,6 +87,7 @@ public class ControladorEscenario {
 
         // Inicializar la ventana
         ventana.setScene(vista1);
+        ventana.centerOnScreen();
         ventana.setTitle("Laberinto");
         ventana.show();
 
@@ -230,7 +231,7 @@ public class ControladorEscenario {
 	private Scene cargarVista(ControladorEscenario controlador, String nombre) {
         Scene vista = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(nombre + ".fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/" + nombre + ".fxml"));
             fxmlLoader.setController(controlador);
             Parent raiz = fxmlLoader.load();
             vista = new Scene(raiz);
