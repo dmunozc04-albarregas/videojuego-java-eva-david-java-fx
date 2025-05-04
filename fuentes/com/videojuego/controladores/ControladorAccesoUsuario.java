@@ -3,7 +3,6 @@ package com.videojuego.controladores;
 import com.videojuego.modelos.Jugador;
 //import com.videojuego.modelos.Escenario;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
@@ -93,7 +92,7 @@ public class ControladorAccesoUsuario {
         }
     }
 
-    private void ventanaControladorMenu() {
+    public void ventanaControladorMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaMenu.fxml"));
             Parent raizMenu = loader.load();

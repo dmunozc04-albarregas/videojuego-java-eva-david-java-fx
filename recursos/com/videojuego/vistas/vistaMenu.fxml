@@ -14,10 +14,7 @@
             <Image url="@../../../nive.jpg" />
          </image>
       </ImageView>
-      <Text fill="#fcfdae" layoutX="300.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Elija nivel:">
-         <font>
-            <Font name="Calibri Bold" size="30.0" />
-         </font>
+      <Text fill="#fcfdae" layoutX="314.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Elija nivel:">
       </Text>
 
       <Button fx:id="btnNivel1" layoutX="314.0" layoutY="130.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel fácil" />

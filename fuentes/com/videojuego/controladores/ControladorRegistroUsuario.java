@@ -65,7 +65,7 @@ public class ControladorRegistroUsuario{
         }
     }
 
-     private void ventanaControladorMenu() {
+    private void ventanaControladorMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaMenu.fxml"));
             Parent raizMenu = loader.load();

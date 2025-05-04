@@ -23,11 +23,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 
 public class ControladorEscenario {
 	private Stage ventana;
 	private Scene vista1;
 	private Scene vista2;
+	private ControladorMenu controladorMenu;
 
 	@FXML
 	private GridPane gridPane; //Organiza los componentes en filas y columnas, similar a una tabla.
@@ -49,9 +55,11 @@ public class ControladorEscenario {
 
 	public ControladorEscenario(){}
 
-	public ControladorEscenario(Stage ventana, Path rutaEscenario) {
+	public ControladorEscenario(Stage ventana, Path rutaEscenario, ControladorMenu controladorMenu) {
 		try{
 			this.ventana = ventana;
+			this.controladorMenu = controladorMenu;
+			this.jugador = controladorMenu.getJugador();
         	cargarEscenario(rutaEscenario);
         	inicializarVista();
         }catch(IOException e) {
@@ -153,16 +161,12 @@ public class ControladorEscenario {
 	    switch (tipo) {
     	    case 'O':
          	   return new Rectangle2D(1*LADO, 3*LADO, LADO, LADO);
-        	case 'I':
-            	return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
-        	case 'D':
-            	return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
-        	case 'A':
-            	return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
         	case 'B':
            		return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
            	case 'P':
            		return new Rectangle2D(2.35*LADO, 1.8*LADO, LADO, LADO);
+        	case 'F':
+     		    return new Rectangle2D(2.35*LADO, 1.8*LADO, LADO, LADO);
         	default:
             	return new Rectangle2D(4.5*LADO, 7* LADO, LADO, LADO);
     	}
@@ -194,6 +198,21 @@ public class ControladorEscenario {
     }
 
 	private void moverPersonaje(int nuevaFila, int nuevaCol) {
+    	char tipoCelda = escenario.getMapa()[nuevaFila][nuevaCol];
+
+    	 // Verifica si es la celda de salida
+    	if (tipoCelda == 'F') {
+    		moverPersonajeConAnimacion(nuevaFila, nuevaCol);
+ 		    mostrarAlerta("¡Enhorabuena! Has llegado al final...");
+        	terminarNivel(); // Terminar nivel si es celda de portal
+        	return;
+
+    	}
+
+    	moverPersonajeConAnimacion(nuevaFila, nuevaCol);
+    }
+
+    private void moverPersonajeConAnimacion(int nuevaFila, int nuevaCol) {
     	stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
 
     	// Evitar movimiento redundante
@@ -244,4 +263,22 @@ public class ControladorEscenario {
         }
         return vista;
     }
+
+    private void terminarNivel() {
+    	PauseTransition espera = new PauseTransition(Duration.seconds(2));
+    	espera.setOnFinished(event -> {
+        	ventana.close();
+	        controladorMenu.mostrar();
+    	});
+    	espera.play();
+	}
+
+	private void mostrarAlerta(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Saliendo del juego..."); 
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 }

@@ -15,7 +15,7 @@
             <Image url="@../../../registrarUsuario.jpg" />
          </image>
       </ImageView>
-      <Text fill="#f7f3f3" layoutX="280.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Registrar jugador" textAlignment="CENTER" >
+      <Text fill="#f7f3f3" layoutX="225.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Registrar jugador" textAlignment="CENTER">
          <font>
             <Font name="Calibri Bold Italic" size="24.0" />
          </font>
