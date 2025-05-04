@@ -29,7 +29,6 @@ public class ControladorSplash {
     @FXML
     private void ventanaAccesoUsuario() {
         try {
-            //Font.loadFont(getClass().getResourceAsStream("/PressStart2P-Regular.ttf"), 10);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/solicitar_usuario.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);

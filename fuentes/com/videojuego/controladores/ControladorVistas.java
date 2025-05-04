@@ -28,7 +28,7 @@ public class ControladorVistas {
         	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/pantalla_splash.fxml"));
         	Parent raiz = fxmlLoader.load();
 			vista1 = new Scene(raiz);
-	        vista1.getStylesheets().add(getClass().getResource("/estilo.css").toExternalForm());
+	        //vista1.getStylesheets().add(getClass().getResource("/estilo.css").toExternalForm());
 		}	
 		catch(IOException e){
 			e.printStackTrace();

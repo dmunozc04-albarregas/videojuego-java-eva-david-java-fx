@@ -1,6 +1,5 @@
 package com.videojuego;
 
-//import com.videojuego.controladores.ControladorPrincipal;
 import com.videojuego.controladores.ControladorVistas;
 import com.videojuego.modelos.Jugador;
 

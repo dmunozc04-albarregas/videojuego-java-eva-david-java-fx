@@ -38,6 +38,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="btnComenzar" layoutX="364.0" layoutY="406.0" mnemonicParsing="false" onAction="#ventanaAccesoUsuario" prefHeight="44.0" prefWidth="168.0" styleClass="boton-jugar" text="JUGAR" />
+      <Button fx:id="btnComenzar" layoutX="364.0" layoutY="406.0" mnemonicParsing="false" onAction="#ventanaAccesoUsuario" prefHeight="44.0" prefWidth="168.0" style="-fx-background-color: #b03311;" styleClass="boton-jugar" text="JUGAR" />
    </children>
 </AnchorPane>

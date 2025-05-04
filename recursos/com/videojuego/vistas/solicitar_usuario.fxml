@@ -6,22 +6,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@../../../estilo.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="485.0" minWidth="643.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorAccesoUsuario">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="485.0" minWidth="643.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorAccesoUsuario">
    <children>
       <ImageView fitHeight="487.0" fitWidth="863.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../solicitudUsuario.jpg" />
          </image>
-         <viewport>
-            <Rectangle2D />
-         </viewport>
       </ImageView>
-      <Text layoutX="220.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" style="titulo" text="Nombre de usuario:" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="208.630859375">
+      <Text layoutX="150.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Nombre de usuario:" textAlignment="CENTER" textOrigin="CENTER">
       </Text>
       <TextField fx:id="nombreUsuarioAComprobar" alignment="TOP_CENTER" layoutX="230.0" layoutY="226.0" prefHeight="34.0" prefWidth="189.0" />
-      <Button fx:id="btnValidarUsuario" layoutX="245.0" layoutY="387.0" mnemonicParsing="false" onAction="#comprobarNombreUsuario" prefHeight="42.0" prefWidth="158.0" style="-fx-background-radius: 0; -fx-background-color: #fcf8f7;" text="Aceptar" textFill="#4d5a73" />
+      <Button fx:id="btnValidarUsuario" layoutX="245.0" layoutY="387.0" mnemonicParsing="false" onAction="#comprobarNombreUsuario" prefHeight="42.0" prefWidth="158.0" style="-fx-background-radius: 0; -fx-background-color: #fcf8f7;" styleClass="boton-jugar" text="Aceptar" textFill="#4d5a73" />
    </children>
 </AnchorPane>

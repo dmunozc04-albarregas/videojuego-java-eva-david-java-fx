@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ControladorPrincipal {
+public class ControladorEscenario {
 	private Stage ventana;
 	private Scene vista1;
 	private Scene vista2;
@@ -39,7 +39,7 @@ public class ControladorPrincipal {
 
 	private static final Integer LADO = 28;
 
-	public ControladorPrincipal(Stage ventana) {
+	public ControladorEscenario(Stage ventana) {
 		
 		cargarDimensiones(rutaEscenario);
 		stackPanes = new StackPane[alto][ancho];
@@ -58,28 +58,6 @@ public class ControladorPrincipal {
 
 		crearGrid(alto, ancho);
 
-		//Creación los viewports del escenario
-		/*Rectangle2D vpSuelo = new Rectangle2D(5*LADO, 2*LADO, LADO, LADO);
-		Rectangle2D vpEsquinaSuperiorIzquierda = new Rectangle2D(0*LADO, 3*LADO, LADO, LADO);
-		Rectangle2D vpEsquinaSuperiorDerecha = new Rectangle2D(2*LADO, 3*LADO, LADO, LADO);
-		Rectangle2D vpEsquinaInferiorIzquierda = new Rectangle2D(0*LADO, 5*LADO, LADO, LADO);
-		Rectangle2D vpEsquinaInferiorDerecha = new Rectangle2D(2*LADO, 5*LADO, LADO, LADO);
-		Rectangle2D vpBordeSuperior = new Rectangle2D(1*LADO, 5*LADO, LADO, LADO);
-		Rectangle2D vpBordeInferior = new Rectangle2D(1*LADO, 3*LADO, LADO, LADO);
-		Rectangle2D vpBordeLateralIzquierdo = new Rectangle2D(2*LADO, 4*LADO, LADO, LADO);
-		Rectangle2D vpBordeLateralDerecho = new Rectangle2D(0*LADO, 4*LADO, LADO, LADO);
-		Rectangle2D vpPared = new Rectangle2D(4*LADO, 2*LADO, LADO, LADO);
-		Rectangle2D vpColumna = new Rectangle2D(2*LADO, 2*LADO, LADO, LADO);
-		Rectangle2D vpPuerta = new Rectangle2D(1*LADO, 0*LADO, LADO, LADO);
-
-		//Creación del personaje
-		Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje.png"));
-		ivPersonaje = new ImageView(imgPersonaje);
-		ivPersonaje.setFitHeight(60);
-		ivPersonaje.setPreserveRatio(true);
-		Rectangle2D vpPersonaje = new Rectangle2D(3*128, 1*160, 128, 160);
-		ivPersonaje.setViewport(vpPersonaje);
-*/
 		vista1.setOnKeyPressed(event -> {
     // Si la tecla presionada es una de las teclas de dirección
     switch (event.getCode()) {
@@ -293,7 +271,7 @@ public class ControladorPrincipal {
 		}
 	}
 
-	private Scene cargarVista(ControladorPrincipal controlador, String nombre) {
+	private Scene cargarVista(ControladorEscenario controlador, String nombre) {
         Scene vista = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(nombre + ".fxml"));
