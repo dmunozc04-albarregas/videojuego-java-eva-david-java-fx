@@ -212,6 +212,11 @@ public class ControladorEscenario {
 
     	}
 
+    	else if(tipoCelda == 'O'){
+    		mostrarAlerta("Te has chocado!!!");
+    		return;
+    	}
+
     	moverPersonajeConAnimacion(nuevaFila, nuevaCol);
     }
 
