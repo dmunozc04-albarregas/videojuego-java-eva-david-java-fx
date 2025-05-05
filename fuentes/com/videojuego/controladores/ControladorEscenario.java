@@ -50,6 +50,7 @@ public class ControladorEscenario {
 	private ImageView ivPersonaje;
 
 	private static final Integer LADO = 28;
+	private static final Integer LOBST = 56;
 	
 	private Escenario escenario;
 	private Jugador jugador;
@@ -140,8 +141,8 @@ public class ControladorEscenario {
     	    for (int j = 0; j < mapa[i].length; j++) {
          	    ImageView imageView = (ImageView) stackPanes[i][j].getChildren().get(0);
         		imageView.setViewport(obtenerViewport(mapa[i][j]));
-        		imageView.setFitWidth(30.2);
-        		imageView.setFitHeight(40.2);
+        		imageView.setFitWidth(31);
+        		imageView.setFitHeight(31);
         		imageView.setPreserveRatio(false);
         		imageView.setImage(imgEscenario);
     		}
@@ -162,7 +163,7 @@ public class ControladorEscenario {
 	private Rectangle2D obtenerViewport(char tipo) {
 	    switch (tipo) {
     	    case 'O':
-         	   return new Rectangle2D(1*LADO, 3*LADO, LADO, LADO);
+         	   return new Rectangle2D(2*LOBST, 0.4*LOBST, LOBST, LOBST);
         	case 'B':
            		return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
            	case 'P':
