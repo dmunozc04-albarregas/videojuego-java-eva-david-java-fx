@@ -29,7 +29,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="685.0" layoutY="389.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="54.0">
+      <Button fx:id="btnAyuda" layoutX="685.0" layoutY="389.0" mnemonicParsing="false" onAction="#mostrarAyuda" prefHeight="45.0" prefWidth="54.0">
          <graphic>
             <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>

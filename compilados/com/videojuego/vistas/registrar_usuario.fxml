@@ -18,17 +18,11 @@
       <Text fill="#f7f3f3" layoutX="225.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Registrar jugador" textAlignment="CENTER">
       </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Text" />
-      <Text fill="WHITE" layoutX="275.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Nombre de usuario: ">
-         <font>
-            <Font size="16.0" />
-         </font>
+      <Text layoutX="275.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Nombre de usuario: ">
       </Text>
       <TextField fx:id="nombreUsuarioRegistro" style="-fx-font-size: 10px;" styleClass="titulo" prefWidth="200.0"
     prefHeight="30.0" layoutX="355.0" layoutY="229.0"  />
-      <Text fill="WHITE" layoutX="275.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Correo electrónico:">
-         <font>
-            <Font size="16.0" />
-         </font>
+      <Text layoutX="275.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Correo electrónico:">
       </Text>
       <TextField fx:id="correoUsuarioRegistro" style="-fx-font-size: 10px;" styleClass="titulo" prefWidth="200.0"
     prefHeight="30.0" layoutX="355.0" layoutY="326.0" />
