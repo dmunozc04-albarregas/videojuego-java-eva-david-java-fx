@@ -28,6 +28,7 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 
 
 public class ControladorEscenario {
@@ -38,6 +39,10 @@ public class ControladorEscenario {
 
 	@FXML
 	private GridPane gridPane; //Organiza los componentes en filas y columnas, similar a una tabla.
+
+	@FXML
+	private Label contadorGolpes;
+	Integer contadorDeGolpes = 0;
 
 	private StackPane[][] stackPanes;
 	Path rutaEscenario;	
@@ -51,6 +56,7 @@ public class ControladorEscenario {
 
 	private static final Integer LADO = 28;
 	private static final Integer LOBST = 56;
+	private static boolean puertaBloqueada = false;
 	
 	private Escenario escenario;
 	private Jugador jugador;
@@ -148,7 +154,7 @@ public class ControladorEscenario {
     		}
     	}
     	inicializarPersonaje();
-  	   	moverPersonaje(1, 0);
+  	   	posicionarJugador();
 	}
 
     private void inicializarPersonaje() {
@@ -165,13 +171,13 @@ public class ControladorEscenario {
     	    case 'O':
          	   return new Rectangle2D(2*LOBST, 0.4*LOBST, LOBST, LOBST);
         	case 'B':
-           		return new Rectangle2D(18.5* LADO, 7* LADO, LADO, LADO);
+           		return new Rectangle2D(4.5* LADO, 7* LADO, LADO, LADO);
            	case 'P':
            		return new Rectangle2D(2.35*LADO, 1.8*LADO, LADO, LADO);
         	case 'F':
      		    return new Rectangle2D(2.35*LADO, 1.8*LADO, LADO, LADO);
         	default:
-            	return new Rectangle2D(4.5*LADO, 7* LADO, LADO, LADO);
+            	return new Rectangle2D(18.5*LADO, 7* LADO, LADO, LADO);
     	}
 	}
 
@@ -200,27 +206,51 @@ public class ControladorEscenario {
         gridPane.add(stackPane, columna, fila);
     }
 
+    private void posicionarJugador() {
+    	char[][] mapa = escenario.getMapa();
+    	for (int i = 0; i < mapa.length; i++) {
+    		for (int j = 0; j < mapa[i].length; j++) {
+    			if (mapa[i][j] == 'P') {
+    				filaPersonaje = i;
+    				colPersonaje = j;
+    				stackPanes[i][j].getChildren().add(ivPersonaje);
+    				return;
+    			}
+    		}
+    	}
+    }
+
 	private void moverPersonaje(int nuevaFila, int nuevaCol) {
     	char tipoCelda = escenario.getMapa()[nuevaFila][nuevaCol];
 
-    	 // Verifica si es la celda de salida
-    	if (tipoCelda == 'F') {
-    		moverPersonajeConAnimacion(nuevaFila, nuevaCol);
- 		    mostrarAlerta("¡Enhorabuena! Has llegado al final...");
-        	terminarNivel(); // Terminar nivel si es celda de portal
-        	return;
+    	switch(tipoCelda){
+    		case 'F':
+    			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
+ 		    	mostrarAlerta("¡Enhorabuena! Has llegado al final...");
+        		terminarNivel(); // Terminar nivel si es celda de portal
+        		return;
 
+        	case 'O', 'B':
+        		mostrarAlerta("Te has chocado!!!");
+        		contadorDeGolpes++;
+        		contadorGolpes.setText(contadorDeGolpes.toString());
+    			return;
+
+    		case 'P':
+    			if(!puertaBloqueada){
+    				puertaBloqueada = true;
+    				actualizarPosicionPersonaje(nuevaFila, nuevaCol);
+    			}
+    			else{
+    				mostrarAlerta("Esta puerta está bloqueada");
+    			}
+    			return;
+    		default:
+    			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     	}
-
-    	else if(tipoCelda == 'O'){
-    		mostrarAlerta("Te has chocado!!!");
-    		return;
-    	}
-
-    	moverPersonajeConAnimacion(nuevaFila, nuevaCol);
     }
 
-    private void moverPersonajeConAnimacion(int nuevaFila, int nuevaCol) {
+    private void actualizarPosicionPersonaje(int nuevaFila, int nuevaCol) {
     	//stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
 
     	// Evitar movimiento redundante

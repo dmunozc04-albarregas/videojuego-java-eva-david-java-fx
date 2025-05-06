@@ -109,4 +109,9 @@ public class Escenario {
 	public int getAlto() {
 		return alto;
 	}
+
+	public char getCelda(int fila, int columna) {
+    	return this.mapa[fila][columna];
+	}
+
 }
