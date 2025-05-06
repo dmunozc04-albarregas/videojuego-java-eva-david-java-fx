@@ -26,5 +26,5 @@
          </children>
       </HBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-   </children>
+	</children>
 </VBox>
