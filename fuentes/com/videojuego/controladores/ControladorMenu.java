@@ -44,8 +44,8 @@ public class ControladorMenu {
     @FXML
     private Button btnAyuda;
 
-    //@FXML
-    //private Button btnTop10;
+    @FXML
+    private Button btnTop10;
 
     public ControladorMenu() {
     }
@@ -92,21 +92,23 @@ public class ControladorMenu {
 
         String escenarioRuta = "";
         switch (boton.getId()) {
-        case "btnNivel1":
-            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario1.txt";
-            break;
-        case "btnNivel2":
-            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario2.txt";
-            break;
-        case "btnNivel3":
-            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario3.txt";
-            break;
-        case "btnNivel4":
-            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
-            break;
-        case "btnAyuda":
-            mostrarAyuda();
-            return;
+            case "btnNivel1":
+                escenarioRuta = "fuentes/com/videojuego/escenarios/escenario1.txt";
+                break;
+            case "btnNivel2":
+                escenarioRuta = "fuentes/com/videojuego/escenarios/escenario2.txt";
+                break;
+            case "btnNivel3":
+                escenarioRuta = "fuentes/com/videojuego/escenarios/escenario3.txt";
+                break;
+            case "btnNivel4":
+                escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
+                break;
+            case "btnAyuda":
+                mostrarAyuda();
+                return;
+            default: 
+                mostrarTop10():
         }
 
         controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
@@ -136,8 +138,8 @@ public class ControladorMenu {
         menu.show();
     }
 
-    public void cerrarVentanaActual() {
-        Stage ventanaActual = (Stage) btnAyuda.getScene().getWindow();
+    public void cerrarVentanaActual(Button boton) {
+        Stage ventanaActual = (Stage) boton.getScene().getWindow();
         ventanaActual.close();
     }    
 
@@ -145,9 +147,6 @@ public class ControladorMenu {
     private void mostrarAyuda() {
         try {
             Scene escenaAyuda = Controlador.cargarVista("/com/videojuego/vistas/vistaAyuda.fxml");
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaAyuda.fxml"));
-            //Parent root = loader.load();
-
             Stage ventanaAyuda = new Stage();
             ventanaAyuda.setTitle("Ayuda");
             ventanaAyuda.setScene(escenaAyuda);
@@ -165,33 +164,25 @@ public class ControladorMenu {
         }
     }
 
-    /*public void mostrarAyuda() {
-        ActionEvent falsoEvento = new ActionEvent(btnAyuda, null);
-        mostrarAyuda(falsoEvento);
-    }*/
-
-    /*private void iniciarJuego(int nivel, Stage stage) {
+    @FXML
+    private void mostrarTop10() {
         try {
-            // Cargar la vista del juego
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/nivel1.fxml"));
-            Parent root = loader.load();
+            Scene escenaTop10 = Controlador.cargarVista("/com/videojuego/vistas/vistaTop10.fxml");
 
-            // Obtener el controlador del juego
-            controladorJuego = loader.getController();
-            controladorJuego.setJugador(jugador);
-            setNivel(nivel);
-
-            controladorJuego.actualizarTextoNivel(nivel);
-
-            // Crear nueva ventana
-            stage.setScene(new Scene(root));
-            stage.setTitle("Juego - Nivel " + nivel);
-            stage.centerOnScreen();
-            stage.show();
-
-        } catch (IOException e) {
-            System.err.println("Error al cargar la vista del juego: " + e.getMessage());
+            Stage ventanaTop10 = new Stage();
+            ventanaTop10.setTitle("Ayuda");
+            ventanaTop10.setScene(escenaAyuda);
+            ventanaTop10.centerOnScreen();
+            ventanaTop10.initModality(Modality.APPLICATION_MODAL);
+            ventanaTop10.setOnHidden(e -> {
+                mostrar();
+            });
+            
+            cerrarVentanaActual(btnTop10);
+            ventanaAyuda.show();
+        }catch (Exception e) {
             e.printStackTrace();
+            Controlador.mostrarAlerta("Error al mostrar la ventana ayuda");
         }
-    }*/
+    }
 }
