@@ -35,35 +35,16 @@ public class ControladorAccesoUsuario {
         String nombreUsuario = nombreUsuarioAComprobar.getText().trim();
 
         if (nombreUsuario.isEmpty()) {
-            mostrarAlerta("Por favor, introduzca un nombre de usuario.");
+            Controlador.mostrarAlerta("Por favor, introduzca un nombre de usuario.");
             return;
         }
 
         else if (jugador.comprobarExistenciaJugador(nombreUsuario)) {
-            mostrarAlerta("¡Entrando al juego...");
+            Controlador.mostrarAlerta("¡Entrando al juego...");
             ventanaControladorMenu();
         } else {
             //mostrarAlerta("El usuario no existe.");
             ventanaRegistroUsuario();
-        }
-    }
-
-    private void mostrarAlerta(String mensaje) {
-        Alert alerta = new Alert(AlertType.INFORMATION);
-        alerta.setTitle("Verificación de jugador");
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
-
-    @FXML
-    public void initialize() {
-        try {
-            // Cargar la fuente personalizada en el controlador
-            Font.loadFont(getClass().getResource("/PressStart2P.ttf").toExternalForm(), 10);
-        } catch (Exception e) {
-            // Si ocurre un error al cargar la fuente, se captura y muestra el mensaje de error
-            e.printStackTrace();
         }
     }
 
@@ -111,7 +92,7 @@ public class ControladorAccesoUsuario {
 
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("ERROR al cargar la ventana del menú.");
+            Controlador.mostrarAlerta("ERROR al cargar la ventana del menú.");
         }
     }
 

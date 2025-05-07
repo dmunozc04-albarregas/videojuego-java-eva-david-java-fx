@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Font;
 import java.io.IOException;
 
-public class ControladorVistas {
+public class ControladorVistas extends Controlador {
 
 	private Stage ventana;
 	private Scene vista1;
@@ -18,24 +18,11 @@ public class ControladorVistas {
 
 	    Font.loadFont(getClass().getClassLoader().getResourceAsStream("PressStart2P.ttf"), 10);
 
-		vista1 = cargarVista1();
+		vista1 = Controlador.cargarVista("/com/videojuego/vistas/pantalla_splash.fxml");
 		vista1.getStylesheets().add(getClass().getResource("/estilo.css").toExternalForm());
 		ventana.setScene(vista1);
+		ventana.centerOnScreen();
 		ventana.setTitle("Inicio videojuego");
 		ventana.show();
-	}
-
-	public Scene cargarVista1(){
-	   	try{     	
-        	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/pantalla_splash.fxml"));
-        	Parent raiz = fxmlLoader.load();
-			vista1 = new Scene(raiz);
-		}	
-		catch(IOException e){
-			e.printStackTrace();
-			System.out.println("ERROR FATAL. No se encuentra la vista");
-			System.exit(-1);
-		}
-        return vista1;
 	}
 }

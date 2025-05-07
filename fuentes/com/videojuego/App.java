@@ -3,14 +3,17 @@ package com.videojuego;
 import com.videojuego.controladores.ControladorVistas;
 import com.videojuego.modelos.Jugador;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 
 /**
@@ -78,6 +81,6 @@ public class App extends Application{
         }
     }
 
-
+    
 }
 

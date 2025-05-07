@@ -90,7 +90,28 @@ public class ControladorMenu {
         Button boton = (Button) event.getSource();        
         Stage stage = (Stage) boton.getScene().getWindow();
 
-        if (boton == btnNivel1) {
+        String escenarioRuta = "";
+        switch (boton.getId()) {
+        case "btnNivel1":
+            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario1.txt";
+            break;
+        case "btnNivel2":
+            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario2.txt";
+            break;
+        case "btnNivel3":
+            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario3.txt";
+            break;
+        case "btnNivel4":
+            escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
+            break;
+        case "btnAyuda":
+            mostrarAyuda();
+            return;
+        }
+
+        controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
+        
+        /*if (boton == btnNivel1) {
             controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario1.txt"), this);
         } else if (boton == btnNivel2) {
             controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario2.txt"), this);
@@ -102,48 +123,45 @@ public class ControladorMenu {
             mostrarAyuda();
         //} else if (boton == btnTop10) {
             //controladorTop10 = new ControladorTop10(stage, "/com/videojuego/vistas/vistaTop10.fxml", this);
-        }
+        }*/
     }
 
     public void mostrar() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaMenu.fxml"));
-            Parent raizMenu = loader.load();
-
-            this.escenaMenu = new Scene(raizMenu);
-            
-            Stage menu = new Stage();
-            menu.setScene(escenaMenu);
-            menu.setTitle("Menú juego");
-
-            menu.initModality(Modality.APPLICATION_MODAL);
-
-            menu.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("No se pudo mostrar el menú.");
-        }
+        escenaMenu = Controlador.cargarVista("/com/videojuego/vistas/vistaMenu.fxml");
+        Stage menu = new Stage();
+        menu.setScene(escenaMenu);
+        menu.centerOnScreen();
+        menu.setTitle("Menú juego");
+        menu.initModality(Modality.APPLICATION_MODAL); // Si quieres bloquear otras ventanas
+        menu.show();
     }
+
+    public void cerrarVentanaActual() {
+        Stage ventanaActual = (Stage) btnAyuda.getScene().getWindow();
+        ventanaActual.close();
+    }    
 
     @FXML
     private void mostrarAyuda() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaAyuda.fxml"));
-            Parent root = loader.load();
+            Scene escenaAyuda = Controlador.cargarVista("/com/videojuego/vistas/vistaAyuda.fxml");
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaAyuda.fxml"));
+            //Parent root = loader.load();
 
             Stage ventanaAyuda = new Stage();
             ventanaAyuda.setTitle("Ayuda");
-            ventanaAyuda.setScene(new Scene(root));
-
+            ventanaAyuda.setScene(escenaAyuda);
+            ventanaAyuda.centerOnScreen();
+            ventanaAyuda.initModality(Modality.APPLICATION_MODAL);
             ventanaAyuda.setOnHidden(e -> {
                 mostrar();
             });
             
-            Stage ventanaActual = (Stage) btnAyuda.getScene().getWindow();
-            ventanaActual.close();
+            cerrarVentanaActual();
             ventanaAyuda.show();
         }catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
+            Controlador.mostrarAlerta("Error al mostrar la ventana ayuda");
         }
     }
 

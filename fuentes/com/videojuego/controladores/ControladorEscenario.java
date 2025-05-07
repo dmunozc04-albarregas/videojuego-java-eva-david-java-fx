@@ -19,11 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.ColumnConstraints;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.ArrayList;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import javafx.scene.control.Alert;
@@ -31,7 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 
 
-public class ControladorEscenario {
+public class ControladorEscenario extends Controlador {
 	private Stage ventana;
 	private Scene vista1;
 	private Scene vista2;
@@ -45,9 +41,9 @@ public class ControladorEscenario {
 	Integer contadorDeGolpes = 0;
 
 	private StackPane[][] stackPanes;
-	Path rutaEscenario;	
-	int alto;
-	int ancho;
+	private Path rutaEscenario;	
+	private int alto;
+	private int ancho;
 	private int filaPersonaje = 1;
 	private int colPersonaje = 1;
 
@@ -72,16 +68,15 @@ public class ControladorEscenario {
         	inicializarVista();
         }catch(IOException e) {
         	e.printStackTrace();
-        	System.out.println("Error al cargar el escenario");
+        	Controlador.mostrarAlerta("Error al cargar el escenario");
         }
     }
 
     private void cargarEscenario(Path rutaEscenario) throws IOException{
-    	 // Cargar escenario y sus dimensiones
+    	 //Cargar escenario y sus dimensiones
         this.escenario = new Escenario(rutaEscenario);
         alto = escenario.getAlto();
         ancho = escenario.getAncho();
-        escenario.cargarDimensiones(rutaEscenario);
         stackPanes = new StackPane[alto][ancho];
         imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
     }
@@ -89,8 +84,8 @@ public class ControladorEscenario {
     private void inicializarVista() {
     	BDLaberinto.crearTabla();
     	//Cargamos las vistas del Controlador
-		vista1 = cargarVista(this, "vista1");
-		vista2 = cargarVista(this, "vista2");
+		vista1 = cargarVistaConControlador(this, "vista1");
+		vista2 = cargarVistaConControlador(this, "vista2");
 
 		//Componemos la vista
 		HBox raizVista1 = (HBox) vista1.getRoot();
@@ -226,12 +221,12 @@ public class ControladorEscenario {
     	switch(tipoCelda){
     		case 'F':
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
- 		    	mostrarAlerta("¡Enhorabuena! Has llegado al final...");
+ 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final...");
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
 
         	case 'O', 'B':
-        		mostrarAlerta("Te has chocado!!!");
+        		Controlador.mostrarAlerta("Te has chocado!!!");
         		contadorDeGolpes++;
         		contadorGolpes.setText(contadorDeGolpes.toString());
     			return;
@@ -242,7 +237,7 @@ public class ControladorEscenario {
     				actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			}
     			else{
-    				mostrarAlerta("Esta puerta está bloqueada");
+    				Controlador.mostrarAlerta("Esta puerta está bloqueada");
     			}
     			return;
     		default:
@@ -287,7 +282,7 @@ public class ControladorEscenario {
 		}
 	}*/
 
-	private Scene cargarVista(ControladorEscenario controlador, String nombre) {
+	private Scene cargarVistaConControlador(ControladorEscenario controlador, String nombre) {
         Scene vista = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/" + nombre + ".fxml"));
@@ -312,15 +307,6 @@ public class ControladorEscenario {
     	});
     	espera.play();
 	}
-
-	private void mostrarAlerta(String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Saliendo del juego..."); 
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
-
     /*private void ventanaTop10() {
     	try {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/top10.fxml"));
