@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
+
 /**
  * Clase principal que crea un directorio de configuración y subdirectorios.
  * @author David Muñoz - Eva Retamar
@@ -37,6 +38,7 @@ public class App extends Application{
     @Override
     public void start(Stage stage) throws IOException {
         controladorVistas = new ControladorVistas(stage);
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
     }
 
     /**

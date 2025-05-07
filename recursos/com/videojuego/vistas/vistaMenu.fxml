@@ -13,12 +13,12 @@
             <Image url="@../../../nive.jpg" />
          </image>
       </ImageView>
-      <Text fill="#fcfdae" layoutX="314.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Elija nivel:">
+      <Text fill="#fcfdae" layoutX="314.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="Elija nivel:">
       </Text>
 
-      <Button fx:id="btnNivel1" layoutX="314.0" layoutY="130.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel fácil" />
+      <Button fx:id="btnNivel1" layoutX="307.0" layoutY="131.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel fácil" />
       <Button fx:id="btnNivel2" layoutX="307.0" layoutY="219.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel medio" />
-      <Button fx:id="btnNivel3" layoutX="307.0" layoutY="304.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="46.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel medio alto" />
+      <Button fx:id="btnNivel3" layoutX="307.0" layoutY="303.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="46.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel medio alto" />
       <Button fx:id="btnNivel4" layoutX="307.0" layoutY="389.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Nivel alto" />
       <Button layoutX="761.0" layoutY="389.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="54.0">
          <graphic>

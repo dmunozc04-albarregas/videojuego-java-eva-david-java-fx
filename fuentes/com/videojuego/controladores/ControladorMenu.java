@@ -16,6 +16,8 @@ import javafx.scene.text.Text;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javafx.stage.Modality;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ControladorMenu {
     private Jugador jugador = new Jugador();
@@ -108,7 +110,7 @@ public class ControladorMenu {
                 mostrarAyuda();
                 return;
             default: 
-                mostrarTop10():
+                mostrarTop10();
         }
 
         controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
@@ -150,13 +152,14 @@ public class ControladorMenu {
             Stage ventanaAyuda = new Stage();
             ventanaAyuda.setTitle("Ayuda");
             ventanaAyuda.setScene(escenaAyuda);
+            ventanaAyuda.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             ventanaAyuda.centerOnScreen();
             ventanaAyuda.initModality(Modality.APPLICATION_MODAL);
             ventanaAyuda.setOnHidden(e -> {
                 mostrar();
             });
             
-            cerrarVentanaActual();
+            cerrarVentanaActual(btnAyuda);
             ventanaAyuda.show();
         }catch (Exception e) {
             e.printStackTrace();
@@ -170,8 +173,9 @@ public class ControladorMenu {
             Scene escenaTop10 = Controlador.cargarVista("/com/videojuego/vistas/vistaTop10.fxml");
 
             Stage ventanaTop10 = new Stage();
-            ventanaTop10.setTitle("Ayuda");
-            ventanaTop10.setScene(escenaAyuda);
+            ventanaTop10.setTitle("Top 10 jugadores");
+            ventanaTop10.setScene(escenaTop10);
+            ventanaTop10.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             ventanaTop10.centerOnScreen();
             ventanaTop10.initModality(Modality.APPLICATION_MODAL);
             ventanaTop10.setOnHidden(e -> {
@@ -179,7 +183,7 @@ public class ControladorMenu {
             });
             
             cerrarVentanaActual(btnTop10);
-            ventanaAyuda.show();
+            ventanaTop10.show();
         }catch (Exception e) {
             e.printStackTrace();
             Controlador.mostrarAlerta("Error al mostrar la ventana ayuda");

@@ -14,7 +14,7 @@
             <Image url="@../../../solicitudUsuario.gif" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="168.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Nombre de usuario:" textAlignment="CENTER" textOrigin="CENTER">
+      <Text fill="WHITE" layoutX="256.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="Nombre de usuario:" textAlignment="CENTER" textOrigin="CENTER">
       </Text>
       <TextField fx:id="nombreUsuarioAComprobar" layoutX="332.0" layoutY="235.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 10px;" styleClass="titulo" />
       <Button fx:id="btnValidarUsuario" layoutX="353.0" layoutY="384.0" mnemonicParsing="false" onAction="#comprobarNombreUsuario" prefHeight="42.0" prefWidth="158.0" style="-fx-background-radius: 0; -fx-background-color: #fcf8f7;" styleClass="boton-jugar" text="Aceptar" textFill="#4d5a73" />

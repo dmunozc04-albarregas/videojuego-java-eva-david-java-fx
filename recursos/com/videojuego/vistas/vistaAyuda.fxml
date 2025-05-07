@@ -14,17 +14,17 @@
       </image>
    </ImageView>
 	<VBox layoutX="50" layoutY="30" spacing="20" style="-fx-font-size: 10px;" styleClass="titulo">
-		<Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="🎮 ¡Bienvenido al Laberinto!" />
-        <Text text="Tu objetivo es recorrer el laberinto sin chocar con los bordes ni los obstáculos." wrappingWidth="500" />
+		<Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="🎮 ¡Bienvenido al Laberinto!" textFill="WHITE" />
+        <Text fill="WHITE" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="Tu objetivo es recorrer el laberinto sin chocar con los bordes ni los obstáculos." wrappingWidth="500" />
 
-        <Label style="-fx-font-weight: bold;" text="🔹 Cómo jugar:" />
-        <Text text="• Usa las teclas W (arriba), A (izquierda), S (abajo) y D (derecha) para moverte." wrappingWidth="500" />
-        <Text text="• No te choques con bordes u obstáculos: perderás puntos." wrappingWidth="500" />
+        <Label style="-fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="🔹 Cómo jugar:" textFill="WHITE" />
+        <Text fill="WHITE" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="• Usa las teclas W (arriba), A (izquierda), S (abajo) y D (derecha) para moverte." wrappingWidth="500" />
+        <Text fill="WHITE" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="• No te choques con bordes u obstáculos: perderás puntos." wrappingWidth="500" />
 
-        <Label style="-fx-font-weight: bold;" text="🔹 Niveles de dificultad:" />
-        <Text text="Elige entre 4 niveles: Fácil, Medio, Difícil y Experto." wrappingWidth="500" />
+        <Label style="-fx-font-weight: bold; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="🔹 Niveles de dificultad:" textFill="WHITE" />
+        <Text fill="WHITE" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="Elige entre 4 niveles: Fácil, Medio, Difícil y Experto." wrappingWidth="500" />
 
         <Label style="-fx-font-weight: bold;" text="🟢 Consejo:" />
-        <Text text="Piensa bien antes de moverte. Encuentra la salida rápido y sin errores." wrappingWidth="500" />
+        <Text fill="WHITE" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="Piensa bien antes de moverte. Encuentra la salida rápido y sin errores." wrappingWidth="500" />
 	</VBox>
 </AnchorPane>

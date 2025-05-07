@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class ControladorAccesoUsuario {
 
@@ -58,6 +61,7 @@ public class ControladorAccesoUsuario {
 
             Scene scene = new Scene(root);
             Stage modalStage = new Stage();
+            modalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             modalStage.setScene(scene);
             modalStage.setTitle("Registrar Jugador");
 
@@ -82,6 +86,7 @@ public class ControladorAccesoUsuario {
             
             Stage menu = new Stage();
             menu.setScene(escenaMenu);
+            menu.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             menu.setTitle("Menú juego");
 
             menu.initModality(Modality.APPLICATION_MODAL);

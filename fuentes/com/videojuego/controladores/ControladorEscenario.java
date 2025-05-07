@@ -63,6 +63,7 @@ public class ControladorEscenario extends Controlador {
 		try{
 			this.ventana = ventana;
 			this.controladorMenu = controladorMenu;
+			ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 			this.jugador = controladorMenu.getJugador();
         	cargarEscenario(rutaEscenario);
         	inicializarVista();
