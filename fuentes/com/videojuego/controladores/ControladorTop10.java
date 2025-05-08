@@ -1,4 +1,4 @@
-package com.videojuego.controladores;
+/*package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.modelos.BDLaberinto;
@@ -30,4 +30,4 @@ public class ControladorTop10 {
         List<Jugador> top10 = BDLaberinto.obtenerTop10();
         tablaTop10.getItems().addAll(top10);
     }
-}
+}*/

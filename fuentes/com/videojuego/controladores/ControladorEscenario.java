@@ -2,7 +2,7 @@ package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.modelos.Escenario;
-import com.videojuego.modelos.BDLaberinto;
+//import com.videojuego.modelos.BDLaberinto;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -65,15 +65,20 @@ public class ControladorEscenario extends Controlador {
 			this.controladorMenu = controladorMenu;
 			ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 			this.jugador = controladorMenu.getJugador();
-        	cargarEscenario(rutaEscenario);
+			try {
+				cargarEscenario(rutaEscenario);
+			}catch(Exception e) {
+				System.out.println("Se produjo un error al cargar el escenario: " + e.getMessage());
+    			e.printStackTrace();
+			}
         	inicializarVista();
-        }catch(IOException e) {
+    	} catch (Exception e) {  // Captura cualquier otra excepción inesperada
         	e.printStackTrace();
         	Controlador.mostrarAlerta("Error al cargar el escenario");
-        }
+    	}
     }
 
-    private void cargarEscenario(Path rutaEscenario) throws IOException{
+    private void cargarEscenario(Path rutaEscenario) throws Exception{
     	 //Cargar escenario y sus dimensiones
         this.escenario = new Escenario(rutaEscenario);
         alto = escenario.getAlto();
@@ -83,7 +88,7 @@ public class ControladorEscenario extends Controlador {
     }
 
     private void inicializarVista() {
-    	BDLaberinto.crearTabla();
+    	//BDLaberinto.crearTabla();
     	//Cargamos las vistas del Controlador
 		vista1 = cargarVistaConControlador(this, "vista1");
 		vista2 = cargarVistaConControlador(this, "vista2");
@@ -299,7 +304,7 @@ public class ControladorEscenario extends Controlador {
     }
 
     private void terminarNivel() {
-    	BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
+    	//BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();

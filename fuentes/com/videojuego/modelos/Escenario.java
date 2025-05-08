@@ -14,17 +14,35 @@ public class Escenario {
 	Path rutaEscenario;
 
 
-	public Escenario(Path rutaEscenario) throws IOException {
+	public Escenario(Path rutaEscenario) throws Exception {
 		List<String> lineas = Files.readAllLines(rutaEscenario);
+		// Comprobación de que el archivo no esté vacío
+    	if (lineas.isEmpty()) {
+        	throw new Exception("El archivo de escenario está vacío.");
+    	}
 		cargarDimensiones(lineas.get(0));
 		mapa = crearMapaDesdeLineas(lineas.subList(1, lineas.size()));
 	}
 
-	public void cargarDimensiones(String primeraLinea) {
+	public void cargarDimensiones(String primeraLinea) throws Exception{
         String[] dimensiones = primeraLinea.split(" "); // Separar las dimensiones por espacio
-        	
-        ancho = Integer.parseInt(dimensiones[0]); // Asignar el ancho
-        alto = Integer.parseInt(dimensiones[1]); // Asignar el alto
+        // Comprobar que haya exactamente dos valores para las dimensiones
+    	if (dimensiones.length != 2) {
+        	throw new IOException("Formato inválido en las dimensiones. Se esperaba dos números separados por espacio.");
+    	}
+    	try {
+    		ancho = Integer.parseInt(dimensiones[0]); // Asignar el ancho
+        	alto = Integer.parseInt(dimensiones[1]); // Asignar el alto
+    		// Comprobar que ambos valores sean positivos
+        	if (ancho <= 0 || alto <= 0) {
+            	throw new IOException("Las dimensiones deben ser números positivos.");
+        	}
+        	// Asignar los valores a las variables del escenario
+        	this.ancho = ancho;
+        	this.alto = alto;
+    	} catch (NumberFormatException e) {
+        	throw new IOException("Las dimensiones deben ser números válidos. Error en: " + primeraLinea, e);
+    	}
 	}
 
 	public char[][] crearMapaDesdeLineas(List<String> lineas) throws IOException {
@@ -33,6 +51,10 @@ public class Escenario {
         	String[] elementos = linea.trim().split(" ");
         	List<Character> fila = new ArrayList<>();
     		for (String elemento : elementos) {
+    			// Validar formato: uno o más dígitos seguidos de una letra
+            	if (!elemento.matches("\\d+[A-Za-z]")) { // puedes ajustar las letras si solo permites ciertas
+                	throw new IOException("Formato inválido en elemento: " + elemento);
+            	}
         		int cantidad = Integer.parseInt(elemento.substring(0, elemento.length() - 1));
         		char tipo = elemento.charAt(elemento.length() - 1);
         		// Añadir el tipo de carácter la cantidad de veces indicada

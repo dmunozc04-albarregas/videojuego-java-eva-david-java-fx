@@ -1,4 +1,4 @@
-package com.videojuego.modelos;
+/*package com.videojuego.modelos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -61,4 +61,4 @@ public class BDLaberinto {
         } 
         return top10;
 	}
-}
+}*/
