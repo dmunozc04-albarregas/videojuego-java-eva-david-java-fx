@@ -2,12 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" maxWidth="150.0" minHeight="300.0" minWidth="100.0" spacing="20.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxWidth="150.0" minHeight="300.0" minWidth="100.0" spacing="20.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label style="-fx-font-size: 10px; -fx-text-fill: #20b51b;" styleClass="titulo" text="Vista 2">
          <VBox.margin>
@@ -25,6 +26,10 @@
                </HBox.margin></Label>
          </children>
       </HBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+      <ImageView fitHeight="230.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../fondo-vista2.gif" />
+         </image>
+      </ImageView>
 	</children>
 </VBox>

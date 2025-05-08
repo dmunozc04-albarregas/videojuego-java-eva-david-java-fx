@@ -8,3 +8,7 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+
+#vbox {
+	-fx-background-image:url('/recursos/fondo-vista2.gif');
+}
