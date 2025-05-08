@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.videojuego.controladores.ControladorTop10">
-    <TableView fx:id="tablaTop10" layoutX="20" layoutY="20" prefHeight="300" prefWidth="360">
+<AnchorPane prefHeight="292.0" prefWidth="361.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorTop10">
+    <TableView fx:id="tablaTop10" prefHeight="291.0" prefWidth="361.0">
         <columns>
-            <TableColumn fx:id="colNombre" text="Jugador" prefWidth="180" />
-            <TableColumn fx:id="colPuntos" text="Puntos" prefWidth="180" />
+            <TableColumn fx:id="colNombre" prefWidth="180" text="Jugador" />
+            <TableColumn fx:id="colPuntos" prefWidth="180" text="Puntos" />
         </columns>
     </TableView>
 </AnchorPane>

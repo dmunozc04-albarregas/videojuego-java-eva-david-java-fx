@@ -11,6 +11,6 @@ xcopy "recursos\com\videojuego\" "compilados\com\videojuego\" /E /H /K
 xcopy recursos compilados /E
 
 Ejecutar programa FX
-java -classpath compilados --module-path C:\Users\EVA\Desktop\software\javafx-sdk-24\lib --add-modules javafx.fxml,javafx.controls,javafx.media com.videojuego.App
+java -classpath compilados;recursos/sqlite.jar --module-path C:\Users\EVA\Desktop\software\javafx-sdk-24\lib --add-modules javafx.fxml,javafx.controls,javafx.media com.videojuego.App
 
-java -classpath compilados --module-path C:\javafx-sdk-24\lib --add-modules javafx.fxml,javafx.controls,javafx.media com.videojuego.App 
+java -classpath compilados;recursos/sqlite.jar --module-path C:\javafx-sdk-24\lib --add-modules javafx.fxml,javafx.controls,javafx.media com.videojuego.App 

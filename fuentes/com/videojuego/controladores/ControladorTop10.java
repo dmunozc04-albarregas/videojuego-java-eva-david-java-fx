@@ -1,7 +1,7 @@
 package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
-//import com.videojuego.modelos.BDLaberinto;
+import com.videojuego.modelos.BDLaberinto;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -25,9 +25,16 @@ public class ControladorTop10 {
     	// Asociar propiedades de la clase Jugador a las columnas
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreUsuario"));
         colPuntos.setCellValueFactory(new PropertyValueFactory<>("puntos"));
+        colNombre.setStyle("-fx-alignment: CENTER;");
+        colPuntos.setStyle("-fx-alignment: CENTER;");
+        BDLaberinto.crearTabla();
+        //BDLaberinto.insertarPuntuacion(Jugador.getNombreUsuario(), 1500);
 
         // Obtener y mostrar los datos
-        //List<Jugador> top10 = BDLaberinto.obtenerTop10();
-        //tablaTop10.getItems().addAll(top10);
+        List<Jugador> top10 = BDLaberinto.obtenerTop10();
+        while (top10.size() < 10) {
+            top10.add(new Jugador("-", 0));
+        }
+        tablaTop10.getItems().addAll(top10);
     }
 }
