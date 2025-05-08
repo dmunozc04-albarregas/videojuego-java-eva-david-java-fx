@@ -10,12 +10,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.ColumnConstraints;
 import java.io.IOException;
@@ -95,7 +95,7 @@ public class ControladorEscenario extends Controlador {
 
 		//Componemos la vista
 		HBox raizVista1 = (HBox) vista1.getRoot();
-		VBox raizVista2 = (VBox) vista2.getRoot();
+		AnchorPane raizVista2 = (AnchorPane) vista2.getRoot();
 		raizVista1.getChildren().add(raizVista2);
 
 		crearGrid(alto, ancho);
