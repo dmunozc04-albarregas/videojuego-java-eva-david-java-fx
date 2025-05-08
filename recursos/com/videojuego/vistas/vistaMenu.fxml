@@ -20,7 +20,7 @@
       <Button fx:id="btnNivel2" layoutX="307.0" layoutY="219.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Medio" />
       <Button fx:id="btnNivel3" layoutX="307.0" layoutY="303.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="46.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Alto" />
       <Button fx:id="btnNivel4" layoutX="307.0" layoutY="389.0" mnemonicParsing="false" onAction="#seleccionarNivel" prefHeight="45.0" prefWidth="234.0" style="-fx-background-radius: 0; -fx-background-color: #fcfdae;" styleClass="boton-jugar" text="Experto" />
-      <Button layoutX="761.0" layoutY="389.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="54.0">
+      <Button fx:id="btnTop10" layoutX="761.0" layoutY="389.0" mnemonicParsing="false" onAction="#mostrarTop10" prefHeight="45.0" prefWidth="54.0">
          <graphic>
             <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>

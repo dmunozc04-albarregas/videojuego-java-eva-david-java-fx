@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.ControladorTop10">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.videojuego.controladores.ControladorTop10">
     <TableView fx:id="tablaTop10" layoutX="20" layoutY="20" prefHeight="300" prefWidth="360">
         <columns>
             <TableColumn fx:id="colNombre" text="Jugador" prefWidth="180" />

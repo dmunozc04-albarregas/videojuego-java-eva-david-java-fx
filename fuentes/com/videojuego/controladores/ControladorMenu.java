@@ -106,11 +106,12 @@ public class ControladorMenu {
             case "btnNivel4":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
                 break;
-            case "btnAyuda":
-                mostrarAyuda();
+            case "btnAyuda": mostrarAyuda();
+                return;
+            case "btnTop10": mostrarTop10();
                 return;
             default: 
-                mostrarTop10();
+                return;
         }
 
         controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
