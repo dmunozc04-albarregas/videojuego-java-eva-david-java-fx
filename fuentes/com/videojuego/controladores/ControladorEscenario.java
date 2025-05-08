@@ -25,6 +25,11 @@ import javafx.util.Duration;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+
+
 
 
 public class ControladorEscenario extends Controlador {
@@ -39,6 +44,14 @@ public class ControladorEscenario extends Controlador {
 	@FXML
 	private Label contadorGolpes;
 	Integer contadorDeGolpes = 0;
+
+	@FXML
+	private Label cronometroLabel;
+	private int segundos = 0;
+	private Timeline timeLine;
+
+	@FXML
+	private Label labelChoque;
 
 	private StackPane[][] stackPanes;
 	private Path rutaEscenario;	
@@ -154,6 +167,7 @@ public class ControladorEscenario extends Controlador {
         		imageView.setImage(imgEscenario);
     		}
     	}
+    	iniciarCronometro();
     	inicializarPersonaje();
   	   	posicionarJugador();
 	}
@@ -215,6 +229,7 @@ public class ControladorEscenario extends Controlador {
     				filaPersonaje = i;
     				colPersonaje = j;
     				stackPanes[i][j].getChildren().add(ivPersonaje);
+    				puertaBloqueada = true;
     				return;
     			}
     		}
@@ -227,12 +242,15 @@ public class ControladorEscenario extends Controlador {
     	switch(tipoCelda){
     		case 'F':
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
- 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final...");
+    			String tiempoFinal = cronometroLabel.getText();
+    			timeLine.stop();
+ 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
 
         	case 'O', 'B':
-        		Controlador.mostrarAlerta("Te has chocado!!!");
+        		//Controlador.mostrarAlerta("Te has chocado!!!");
+        		mensajeAlerta("¡Te has chocado!");	
         		contadorDeGolpes++;
         		contadorGolpes.setText(contadorDeGolpes.toString());
     			return;
@@ -243,7 +261,8 @@ public class ControladorEscenario extends Controlador {
     				actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			}
     			else{
-    				Controlador.mostrarAlerta("Esta puerta está bloqueada");
+    				//Controlador.mostrarAlerta("Esta puerta está bloqueada");
+    				mensajeAlerta("🔐Esta puerta está bloqueada");
     			}
     			return;
     		default:
@@ -303,8 +322,34 @@ public class ControladorEscenario extends Controlador {
         return vista;
     }
 
+private void iniciarCronometro() {
+    timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        segundos++;
+
+        int minutos = segundos / 60;
+        int restoSegundos = segundos % 60;
+
+        String tiempoFormateado = String.format("%02d:%02d", minutos, restoSegundos);
+        cronometroLabel.setText(tiempoFormateado);
+    }));
+
+    timeLine.setCycleCount(Timeline.INDEFINITE);
+    timeLine.play();
+}
+
+	private void mensajeAlerta(String texto){
+		labelChoque.setText(texto);
+		labelChoque.setVisible(true);
+		PauseTransition espera = new PauseTransition(Duration.seconds(1));
+    	espera.setOnFinished(event -> {
+        	labelChoque.setVisible(false);
+    	});
+    	espera.play();
+	}
+
     private void terminarNivel() {
     	//BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
+    	System.out.println("Tiempo finalizado");
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();

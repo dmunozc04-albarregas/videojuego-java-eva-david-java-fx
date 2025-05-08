@@ -3,12 +3,18 @@
     -fx-font-size: 20px;
 }
 
+.texto-golpes {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 12px;
+}
+
+.subtitulo{
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 8px
+}
+
 .boton-jugar {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-}
-
-#vbox {
-	-fx-background-image:url('/recursos/fondo-vista2.gif');
 }
