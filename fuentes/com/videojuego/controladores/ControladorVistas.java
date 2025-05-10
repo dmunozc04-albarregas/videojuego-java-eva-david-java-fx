@@ -23,14 +23,14 @@ public class ControladorVistas extends Controlador {
 		ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 	    Font.loadFont(getClass().getClassLoader().getResourceAsStream("PressStart2P.ttf"), 10);
 
-	    String pathMusica = "recursos/8_bit.mp3";
+	    /*String pathMusica = "recursos/pacman.mp3";
 
 	    Media media = new Media(new File(pathMusica).toURI().toString());
 
 	    //Media Player
 	    MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir en bucle
-        mediaPlayer.play(); // Iniciar reproducción
+        mediaPlayer.play(); // Iniciar reproducción*/
 
 
 		vista1 = Controlador.cargarVista("/com/videojuego/vistas/pantalla_splash.fxml");
