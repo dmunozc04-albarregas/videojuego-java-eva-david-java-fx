@@ -2,7 +2,7 @@ package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.modelos.Escenario;
-//import com.videojuego.modelos.BDLaberinto;
+import com.videojuego.modelos.BDLaberinto;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -28,9 +28,7 @@ import javafx.scene.control.Label;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
-
-
-
+import java.io.IOException;
 
 public class ControladorEscenario extends Controlador {
 	private Stage ventana;
@@ -53,6 +51,8 @@ public class ControladorEscenario extends Controlador {
 	@FXML
 	private Label labelChoque;
 
+	private String nombreUsuario;
+
 	private StackPane[][] stackPanes;
 	private Path rutaEscenario;	
 	private int alto;
@@ -74,30 +74,42 @@ public class ControladorEscenario extends Controlador {
 
 	public ControladorEscenario(Stage ventana, Path rutaEscenario, ControladorMenu controladorMenu) {
 		try{
+			if(ventana == null || controladorMenu == null) {
+				throw new IllegalArgumentException("La ventana o el controlador del menú no pueden ser nulos.");
+			}
 			this.ventana = ventana;
 			this.controladorMenu = controladorMenu;
 			ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 			this.jugador = controladorMenu.getJugador();
-			try {
-				cargarEscenario(rutaEscenario);
-			}catch(Exception e) {
-				System.out.println("Se produjo un error al cargar el escenario: " + e.getMessage());
-    			e.printStackTrace();
-			}
+			cargarEscenario(rutaEscenario);
         	inicializarVista();
-    	} catch (Exception e) {  // Captura cualquier otra excepción inesperada
+    	} catch (Exception e) {  
         	e.printStackTrace();
         	Controlador.mostrarAlerta("Error al cargar el escenario");
     	}
     }
 
     private void cargarEscenario(Path rutaEscenario) throws Exception{
-    	 //Cargar escenario y sus dimensiones
-        this.escenario = new Escenario(rutaEscenario);
-        alto = escenario.getAlto();
-        ancho = escenario.getAncho();
-        stackPanes = new StackPane[alto][ancho];
-        imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
+    	//Cargar escenario y sus dimensiones
+        try {
+        	this.escenario = new Escenario(rutaEscenario);
+        	alto = escenario.getAlto();
+        	ancho = escenario.getAncho();
+        	
+			if (alto <= 0 || ancho <= 0) {
+            	throw new IllegalArgumentException("Las dimensiones del escenario no son válidas.");
+       	 	}
+
+        	stackPanes = new StackPane[alto][ancho];
+        	imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
+    	} catch(IOException e){
+    		System.err.println("Error al cargar el archivo del escenario: " + e.getMessage());
+        	e.printStackTrace();
+        	Controlador.mostrarAlerta("Error al cargar el escenario. Asegúrate de que el archivo exista y esté en el formato correcto.");
+    	} catch (Exception e) {
+        	e.printStackTrace();
+        	Controlador.mostrarAlerta("Se produjo un error inesperado al cargar el escenario.");
+    	}
     }
 
     private void inicializarVista() {
@@ -173,12 +185,12 @@ public class ControladorEscenario extends Controlador {
 	}
 
     private void inicializarPersonaje() {
-        Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje_animado.gif"));
-        ivPersonaje = new ImageView(imgPersonaje);
-        ivPersonaje.setFitHeight(30);
-        ivPersonaje.setPreserveRatio(true);
-        //Rectangle2D vpPersonaje = new Rectangle2D(1*100, 2*100, 100, 100);
-		//ivPersonaje.setViewport(vpPersonaje);
+        if(ivPersonaje == null) {
+        	Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje_animado.gif"));
+        	ivPersonaje = new ImageView(imgPersonaje);
+        	ivPersonaje.setFitHeight(30);
+        	ivPersonaje.setPreserveRatio(true);
+        }
     }
 
 	private Rectangle2D obtenerViewport(char tipo) {
@@ -197,6 +209,9 @@ public class ControladorEscenario extends Controlador {
 	}
 
 	private void crearGrid(Integer alto, Integer ancho) {
+		if(gridPane == null) {
+	        throw new IllegalStateException("El GridPane no puede ser nulo");
+		}
 		for(int i = 0; i < alto; i++) {
         	gridPane.getRowConstraints().add(new RowConstraints()); 
 		}
@@ -244,7 +259,12 @@ public class ControladorEscenario extends Controlador {
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			String tiempoFinal = cronometroLabel.getText();
     			timeLine.stop();
- 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes);
+    			int nivelActual = escenario.getNivel();
+    			nombreUsuario = jugador.getNombreUsuario();
+    			int puntos = calcularPuntos(nivelActual, segundos, Integer.parseInt(contadorGolpes.getText()));
+    			jugador.setPuntos(puntos);
+    			BDLaberinto.insertarActualizarTop10(nombreUsuario, puntos);
+ 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + puntos);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
 
@@ -291,22 +311,6 @@ public class ControladorEscenario extends Controlador {
     	colPersonaje = nuevaCol;
 	}
 
-	/*public void iniciarJuego(Path rutaEscenario) {
-		try{
-			char[][] mapa = cargarEscenario(rutaEscenario);
-
-			for (int i = 0; i < mapa.length; i++) {
-    			for (int j = 0; j < mapa[i].length; j++) {
-        			//System.out.print(mapa[i][j] + " ");
-    			}
-    			//System.out.println();  // Para saltar a la siguiente línea después de cada fila
-			}
-			mostrarEscenario(mapa);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-
 	private Scene cargarVistaConControlador(ControladorEscenario controlador, String nombre) {
         Scene vista = null;
         try {
@@ -337,6 +341,18 @@ public class ControladorEscenario extends Controlador {
     	timeLine.play();
 	}
 
+	private int calcularPuntos(int nivel, int segundos, int golpes) {
+		int puntosBase = switch(nivel) {
+			case 1 -> 100;
+			case 2 -> 200;
+			case 3 -> 300;
+			case 4 -> 400;
+			default -> 0;
+		};
+		int puntosFinales = puntosBase - segundos - (golpes*10);
+		return Math.max(puntosFinales, 0);
+	}
+
 	private void mensajeAlerta(String texto){
 		labelChoque.setText(texto);
 		labelChoque.setVisible(true);
@@ -352,23 +368,9 @@ public class ControladorEscenario extends Controlador {
     	System.out.println("Tiempo finalizado");
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
-        	//ventanaTop10();
         	ventana.close();
 	        controladorMenu.mostrar();
     	});
     	espera.play();
 	}
-    /*private void ventanaTop10() {
-    	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/top10.fxml"));
-			Parent root = loader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Top 10 jugadores");
-			stage.setScene(new Scene(root));
-			stage.show();
-    	} catch (IOException e) {
-        	e.printStackTrace(); 
-    	}	
-    }*/
-
 }

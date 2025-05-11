@@ -56,7 +56,8 @@ public class BDLaberinto {
             while (resultado.next()) {
 				String nombreUsuario = resultado.getString("nombreUsuario");
             	int puntos = resultado.getInt("puntos");
-            	top10.add(new Jugador(nombreUsuario, puntos));            }
+            	top10.add(new Jugador(nombreUsuario, puntos));            
+            }
 
         } catch (SQLException e) {
             System.out.println("Error mostrando top: " + e.getMessage());
@@ -64,7 +65,7 @@ public class BDLaberinto {
         return top10;
 	}
 
-	public void insertarActualizarTop10(String nombreUsuario, int puntos) {
+	public static void insertarActualizarTop10(String nombreUsuario, int puntos) {
 		String updateSql = "UPDATE puntuaciones SET puntos = ? WHERE nombreUsuario = ?";
 		String insertSql = "INSERT INTO puntuaciones (nombreUsuario, puntos) VALUES (?, ?)";
 
