@@ -322,20 +322,20 @@ public class ControladorEscenario extends Controlador {
         return vista;
     }
 
-private void iniciarCronometro() {
-    timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-        segundos++;
+	private void iniciarCronometro() {
+    	timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        	segundos++;
 
-        int minutos = segundos / 60;
-        int restoSegundos = segundos % 60;
+        	int minutos = segundos / 60;
+        	int restoSegundos = segundos % 60;
 
-        String tiempoFormateado = String.format("%02d:%02d", minutos, restoSegundos);
-        cronometroLabel.setText(tiempoFormateado);
-    }));
+        	String tiempoFormateado = String.format("%02d:%02d", minutos, restoSegundos);
+        	cronometroLabel.setText(tiempoFormateado);
+    	}));
 
-    timeLine.setCycleCount(Timeline.INDEFINITE);
-    timeLine.play();
-}
+    	timeLine.setCycleCount(Timeline.INDEFINITE);
+    	timeLine.play();
+	}
 
 	private void mensajeAlerta(String texto){
 		labelChoque.setText(texto);
