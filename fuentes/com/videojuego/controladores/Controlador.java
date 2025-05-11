@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.Alert;
 
-public abstract class Controlador {
+public class Controlador {
 
     @FXML
     public void initialize() {
