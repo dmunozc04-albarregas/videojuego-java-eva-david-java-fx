@@ -37,6 +37,7 @@ public class ControladorTop10 {
                 textoNombre = "-";
                 valorPuntos = 0;
             }
+            System.out.println("Jugador: " + j.getNombreUsuario() + " -> " + j.getPuntos());
 
             agregarFila(textoNombre, valorPuntos, espacioColumna);
             totalMostrado++;
