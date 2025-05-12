@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="461.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.videojuego.controladores.ControladorTop10">
    <ImageView fitHeight="461.0" fitWidth="397.0" pickOnBounds="true">
       <image>
-         <Image url="@../../../clasificacion.png" />
+         <Image url="@../../../clasificacion2.png" />
       </image>
    </ImageView>
    
