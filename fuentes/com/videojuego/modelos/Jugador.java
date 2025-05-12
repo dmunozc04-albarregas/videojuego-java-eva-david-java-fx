@@ -130,13 +130,6 @@ public class Jugador implements Serializable{
         this.columna = columna;
     }
 
-    /**
-     * Setter para los puntos del jugador.
-     */
-    public void setPuntos(int puntos) {
-    	this.puntos = puntos;
-	}
-
 	/**
 	 * Método para obtener el nombre de usuario.
 	 */

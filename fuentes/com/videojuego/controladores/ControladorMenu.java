@@ -32,9 +32,25 @@ public class ControladorMenu {
     private Text nivelTexto;
 
     @FXML
-    private Button btnNivel1, btnNivel2, btnNivel3, btnNivel4, btnAyuda, btnTop10;
+    private Button btnNivel1;
 
-    public ControladorMenu() {}
+    @FXML
+    private Button btnNivel2;
+
+    @FXML
+    private Button btnNivel3;
+
+    @FXML
+    private Button btnNivel4;
+
+    @FXML
+    private Button btnAyuda;
+
+    @FXML
+    private Button btnTop10;
+
+    public ControladorMenu() {
+    }
 
     public ControladorMenu(Stage stage) {
         this.stage = stage;
@@ -77,23 +93,18 @@ public class ControladorMenu {
         Stage stage = (Stage) boton.getScene().getWindow();
 
         String escenarioRuta = "";
-        int nivelSeleccionado = 0;
         switch (boton.getId()) {
             case "btnNivel1":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario1.txt";
-                nivelSeleccionado = 1;
                 break;
             case "btnNivel2":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario2.txt";
-                nivelSeleccionado = 2;
                 break;
             case "btnNivel3":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario3.txt";
-                nivelSeleccionado = 3;
                 break;
             case "btnNivel4":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
-                nivelSeleccionado = 4;
                 break;
             case "btnAyuda": mostrarAyuda();
                 return;
@@ -104,6 +115,20 @@ public class ControladorMenu {
         }
 
         controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
+        
+        /*if (boton == btnNivel1) {
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario1.txt"), this);
+        } else if (boton == btnNivel2) {
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario2.txt"), this);
+        } else if (boton == btnNivel3) {
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario3.txt"), this);
+        } else if (boton == btnNivel4) {
+            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario4.txt"), this);
+        } else if (boton == btnAyuda) {
+            mostrarAyuda();
+        //} else if (boton == btnTop10) {
+            //controladorTop10 = new ControladorTop10(stage, "/com/videojuego/vistas/vistaTop10.fxml", this);
+        }*/
     }
 
     public void mostrar() {

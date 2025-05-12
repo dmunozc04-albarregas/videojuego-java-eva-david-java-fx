@@ -12,13 +12,9 @@ public class Escenario {
 	private Integer alto = 0;
 	private char[][] mapa;
 	Path rutaEscenario;
-	private int nivel;
 
 
 	public Escenario(Path rutaEscenario) throws Exception {
-		this.nivel = Integer.parseInt(
-    		rutaEscenario.getFileName().toString().replaceAll("[^0-9]", "")
-		);
 		List<String> lineas = Files.readAllLines(rutaEscenario);
 		// Comprobación de que el archivo no esté vacío
     	if (lineas.isEmpty()) {
@@ -90,10 +86,6 @@ public class Escenario {
 
 	public int getAlto() {
 		return alto;
-	}
-
-	public int getNivel() {
-		return nivel;
 	}
 
 	public char getCelda(int fila, int columna) {

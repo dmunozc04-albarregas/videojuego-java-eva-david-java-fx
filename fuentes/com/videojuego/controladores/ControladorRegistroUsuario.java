@@ -61,4 +61,6 @@ public class ControladorRegistroUsuario extends Controlador {
         menu.setTitle("Elije el nivel");
         menu.centerOnScreen();
     }
+
+   
 }
