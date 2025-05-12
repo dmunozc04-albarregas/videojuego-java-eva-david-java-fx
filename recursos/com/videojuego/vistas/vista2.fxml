@@ -15,7 +15,7 @@
             <Image url="@../../../fondo-vista2.gif" />
          </image>
       </ImageView>
-      <Label layoutX="51.0" layoutY="7.0" style="-fx-font-size: 10px;" styleClass="titulo" text="Estadísticas" />
+      <Label layoutX="5.0" layoutY="7.0" style="-fx-font-size: 10px;" styleClass="titulo" text="Estadísticas" />
       <Label fx:id="contadorGolpes" layoutX="65.0" layoutY="82.0" style="-fx-font-size: 10px;" styleClass="titulo" text="0" textFill="WHITE" />
       <Text fill="WHITE" layoutX="42.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 9px;" text="Golpes:" wrappingWidth="63.0">
          <font>
@@ -27,6 +27,6 @@
          </styleClass>
       </Text>
       <Label fx:id="cronometroLabel" layoutX="51.0" layoutY="154.0" styleClass="subtitulo" text="0" />
-      <Label fx:id="labelChoque" layoutX="12.0" layoutY="255.0" style="visibility: none;" styleClass="subtitulo" text="-" textFill="RED" />
+      <Label fx:id="labelChoque" layoutX="25.0" layoutY="255.0" prefWidth="90.0" style="visibility: none;" styleClass="subtitulo" text="-" textFill="RED" wrapText="true"/>
    </children>
 </AnchorPane>
