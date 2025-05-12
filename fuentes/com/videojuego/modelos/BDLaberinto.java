@@ -51,7 +51,7 @@ public class BDLaberinto {
 		puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
 
 		System.out.println(nombreUsuario);
-		//insertarPuntuacion(jugador.getNombreUsuario(), puntuacionFinal);
+		insertarPuntuacion(nombreUsuario ,puntuacionFinal);
 	}
 
 	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {
@@ -91,6 +91,42 @@ public class BDLaberinto {
             System.out.println("Error insertando: " + e.getMessage());
         }
 	}
+	/*public static void insertarPuntuacion(String nombreUsuario, int puntos) {
+    String sqlInsert = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
+    String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
+
+    try (Connection conexion = DriverManager.getConnection(URL)) {
+        Statement stmt = conexion.createStatement();
+        ResultSet rs = stmt.executeQuery(sqlTop10);
+
+        int totalPuntuaciones = 0;
+        boolean mereceEntrar = false;
+
+        while (rs.next()) {
+            totalPuntuaciones++;
+            int puntosExistente = rs.getInt("puntos");
+            if (puntos > puntosExistente) {
+                mereceEntrar = true;
+                break; // Ya sabemos que merece entrar
+            }
+        }
+
+        // Si hay menos de 10 puntuaciones, también se puede insertar
+        if (totalPuntuaciones < 10) {
+            mereceEntrar = true;
+        }
+
+        if (mereceEntrar) {
+            PreparedStatement ps = conexion.prepareStatement(sqlInsert);
+            ps.setString(1, nombreUsuario);
+            ps.setInt(2, puntos);
+            ps.executeUpdate();
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error insertando: " + e.getMessage());
+    }
+}*/
 
 	public static List<Jugador> obtenerTop10() {
 		List<Jugador> top10 = new ArrayList<>();

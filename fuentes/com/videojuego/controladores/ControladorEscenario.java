@@ -357,7 +357,8 @@ public class ControladorEscenario extends Controlador {
 	}
 
     private void terminarNivel() {
-    	BDLaberinto.calcularPuntuacion(ControladorAccesoUsuario.getNombreUsuario());
+    	ControladorAccesoUsuario controladorAccesoUsuario = new ControladorAccesoUsuario();
+    	BDLaberinto.calcularPuntuacion(controladorAccesoUsuario.getNombreUsuario());
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();

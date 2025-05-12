@@ -28,14 +28,11 @@ public class ControladorAccesoUsuario {
     private Button btnValidarUsuario;
 
     private Jugador jugador = new Jugador();
-
-    public void setNombreUsuario(String nombre) {
-        nombreUsuarioAComprobar.setText(nombre);
-    }
+    private static String nombreUsuario = null;
 
     @FXML
     private void comprobarNombreUsuario() {
-        String nombreUsuario = nombreUsuarioAComprobar.getText().trim();
+        nombreUsuario = nombreUsuarioAComprobar.getText().trim();
 
         if (nombreUsuario.isEmpty()) {
             Controlador.mostrarAlerta("Por favor, introduzca un nombre de usuario.");
@@ -102,7 +99,11 @@ public class ControladorAccesoUsuario {
     }
 
     public String getNombreUsuario(){
-        return jugador.getNombreUsuario();
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombre) {
+        nombreUsuarioAComprobar.setText(nombre);
     }
 
 }
