@@ -1,5 +1,7 @@
 package com.videojuego.modelos;
 
+import com.videojuego.controladores.ControladorEscenario;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 
 public class BDLaberinto {
 	private static final String URL = "jdbc:sqlite:puntuaciones.db";
+	private static Escenario escenario = new Escenario();
+	private static Jugador jugador = new Jugador();
+	private static ControladorEscenario controladorEscenario = new ControladorEscenario ();
 
 	public static void crearTabla(){
 		try(Connection conexion = DriverManager.getConnection(URL)) {
@@ -29,17 +34,59 @@ public class BDLaberinto {
 		}
 	}
 
-	public static void insertarPuntuacion(String nombreUsuario, int puntos) {
+	public static void calcularPuntuacion(){
+		Integer nivel = escenario.getNivel();
+		Integer contadorGolpes = controladorEscenario.getNumeroDeGolpes();
+		Integer tiempo = controladorEscenario.getTiempo();
+		Integer puntuacionMaxima = 1500;
+		Integer puntuacionFinal = 0;
+
+		switch(nivel){
+			case 1:
+				puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
+				System.out.println(puntuacionFinal);
+				break;
+		}
+
+		insertarPuntuacion(jugador.getNombreUsuario(), puntuacionFinal);
+	}
+
+	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {
+		Integer contador = 0;
+		boolean actualizado = false;
 		String sql = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
-		try (Connection conexion = DriverManager.getConnection(URL);
-            PreparedStatement sentenciaPreparada = conexion.prepareStatement(sql)) {
-            sentenciaPreparada.setString(1, nombreUsuario);
-            sentenciaPreparada.setInt(2, puntos);
-            sentenciaPreparada.executeUpdate();
+		String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
+		try (Connection conexion = DriverManager.getConnection(URL)){
+        	Statement stmt = conexion.createStatement();
+	        ResultSet rs = stmt.executeQuery(sqlTop10);
+
+			do{
+			   if (rs.next()) {
+		            int puntosExistente = rs.getInt("puntos");
+		            
+		            if (puntos > puntosExistente) {
+		                PreparedStatement ps = conexion.prepareStatement(sql);
+		                ps.setString(1, nombreUsuario);
+		                ps.setInt(2, puntos);
+		                ps.executeUpdate();
+		                actualizado = true;
+		            }
+
+		            else {
+	                    PreparedStatement ps = conexion.prepareStatement(sql);
+	                    ps.setString(1, nombreUsuario);
+	                    ps.setInt(2, puntos);
+	                    ps.executeUpdate();
+	                    actualizado = true;
+                	}
+
+                	contador++;
+				}
+			}
+			while(contador < 11 || actualizado == true);
         } catch (SQLException e) {
             System.out.println("Error insertando: " + e.getMessage());
         }
-
 	}
 
 	public static List<Jugador> obtenerTop10() {

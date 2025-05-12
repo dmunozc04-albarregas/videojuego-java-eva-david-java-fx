@@ -13,6 +13,9 @@ public class Escenario {
 	private char[][] mapa;
 	Path rutaEscenario;
 
+	public Escenario(){
+
+	}
 
 	public Escenario(Path rutaEscenario) throws Exception {
 		List<String> lineas = Files.readAllLines(rutaEscenario);
@@ -74,6 +77,10 @@ public class Escenario {
         	array[i] = lista.get(i);
     	}
     	return array;
+	}
+
+	public Integer getNivel(){
+		return Integer.valueOf(rutaEscenario.toString().indexOf(9));
 	}
 	
 	public char[][] getMapa() {

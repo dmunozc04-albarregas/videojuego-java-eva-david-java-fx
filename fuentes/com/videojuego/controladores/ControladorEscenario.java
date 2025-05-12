@@ -91,6 +91,14 @@ public class ControladorEscenario extends Controlador {
     	}
     }
 
+    public Integer getNumeroDeGolpes(){
+    	return contadorDeGolpes;
+    }
+
+    public Integer getTiempo(){
+    	return segundos;
+    }
+
     private void cargarEscenario(Path rutaEscenario) throws Exception{
     	 //Cargar escenario y sus dimensiones
         this.escenario = new Escenario(rutaEscenario);
@@ -245,6 +253,7 @@ public class ControladorEscenario extends Controlador {
     			String tiempoFinal = cronometroLabel.getText();
     			timeLine.stop();
  		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes);
+ 		    	System.out.println(segundos);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
 
@@ -262,7 +271,7 @@ public class ControladorEscenario extends Controlador {
     			}
     			else{
     				//Controlador.mostrarAlerta("Esta puerta está bloqueada");
-    				mensajeAlerta("🔐Esta puerta está bloqueada");
+    				mensajeAlerta("Esta puerta está bloqueada");
     			}
     			return;
     		default:
@@ -322,20 +331,20 @@ public class ControladorEscenario extends Controlador {
         return vista;
     }
 
-private void iniciarCronometro() {
-    timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-        segundos++;
+	private void iniciarCronometro() {
+	    timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+	        segundos++;
 
-        int minutos = segundos / 60;
-        int restoSegundos = segundos % 60;
+	        int minutos = segundos / 60;
+	        int restoSegundos = segundos % 60;
 
-        String tiempoFormateado = String.format("%02d:%02d", minutos, restoSegundos);
-        cronometroLabel.setText(tiempoFormateado);
-    }));
+	        String tiempoFormateado = String.format("%02d:%02d", minutos, restoSegundos);
+	        cronometroLabel.setText(tiempoFormateado);
+	    }));
 
-    timeLine.setCycleCount(Timeline.INDEFINITE);
-    timeLine.play();
-}
+	    timeLine.setCycleCount(Timeline.INDEFINITE);
+	    timeLine.play();
+	}
 
 	private void mensajeAlerta(String texto){
 		labelChoque.setText(texto);
@@ -349,7 +358,6 @@ private void iniciarCronometro() {
 
     private void terminarNivel() {
     	//BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
-    	System.out.println("Tiempo finalizado");
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();
