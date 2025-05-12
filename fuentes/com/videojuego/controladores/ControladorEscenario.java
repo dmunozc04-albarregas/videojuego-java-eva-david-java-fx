@@ -2,7 +2,7 @@ package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.modelos.Escenario;
-//import com.videojuego.modelos.BDLaberinto;
+import com.videojuego.modelos.BDLaberinto;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -357,7 +357,7 @@ public class ControladorEscenario extends Controlador {
 	}
 
     private void terminarNivel() {
-    	//BDLaberinto.insertarPuntuacion(jugador.getNombreUsuario(), jugador.getPuntos());
+    	BDLaberinto.calcularPuntuacion(ControladorAccesoUsuario.getNombreUsuario());
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();

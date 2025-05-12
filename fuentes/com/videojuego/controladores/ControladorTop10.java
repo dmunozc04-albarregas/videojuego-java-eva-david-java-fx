@@ -21,7 +21,7 @@ public class ControladorTop10 {
 
 
     public void initialize() {
-        fuente = Font.loadFont(getClass().getResource("/PressStart2P.ttf").toExternalForm(), 12);
+        fuente = Font.loadFont(getClass().getResourceAsStream("/PressStart2P.ttf"), 12);
 
         List<Jugador> listaTop10 = BDLaberinto.obtenerTop10();
         contenedorTop10.setSpacing(10); 

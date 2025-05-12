@@ -101,4 +101,8 @@ public class ControladorAccesoUsuario {
         }
     }
 
+    public String getNombreUsuario(){
+        return jugador.getNombreUsuario();
+    }
+
 }

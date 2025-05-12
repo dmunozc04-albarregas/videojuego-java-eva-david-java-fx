@@ -23,8 +23,13 @@ public class Escenario {
     	if (lineas.isEmpty()) {
         	throw new Exception("El archivo de escenario está vacío.");
     	}
+    	this.rutaEscenario = rutaEscenario;
 		cargarDimensiones(lineas.get(0));
 		mapa = crearMapaDesdeLineas(lineas.subList(1, lineas.size()));
+	}
+
+	public void setRutaEscenario(Path ruta) {
+    	this.rutaEscenario = ruta;
 	}
 
 	public void cargarDimensiones(String primeraLinea) throws Exception{
@@ -79,9 +84,12 @@ public class Escenario {
     	return array;
 	}
 
-	public Integer getNivel(){
-		return Integer.valueOf(rutaEscenario.toString().indexOf(9));
-	}
+	/*public char getNivel(){
+		String nombreArchivo = rutaEscenario.getFileName().toString();
+		char numero = nombreArchivo.charAt(9);
+
+		return numero;
+	}*/
 	
 	public char[][] getMapa() {
 		return mapa;
