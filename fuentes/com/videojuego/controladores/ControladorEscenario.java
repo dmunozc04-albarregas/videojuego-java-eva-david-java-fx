@@ -133,7 +133,7 @@ public class ControladorEscenario extends Controlador {
     	//Cargamos las vistas del Controlador
 		vista1 = cargarVistaConControlador(this, "vista1");
 		vista2 = cargarVistaConControlador(this, "vista2");
-
+		
 		//Componemos la vista
 		HBox raizVista1 = (HBox) vista1.getRoot();
 		AnchorPane raizVista2 = (AnchorPane) vista2.getRoot();

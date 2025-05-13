@@ -51,6 +51,7 @@ public class ControladorMenu {
      */
     public ControladorMenu(Stage stage) {
         this.stage = stage;
+
     }
     /**
      * Establece el jugador actual.
@@ -145,6 +146,7 @@ public class ControladorMenu {
         Stage menu = new Stage();
         menu.setScene(escenaMenu);
         menu.centerOnScreen();
+        menu.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         menu.setTitle("Menú juego");
         menu.initModality(Modality.APPLICATION_MODAL); // Si quieres bloquear otras ventanas
         menu.show();
