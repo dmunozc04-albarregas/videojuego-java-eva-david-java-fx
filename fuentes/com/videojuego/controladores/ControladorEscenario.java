@@ -252,7 +252,7 @@ public class ControladorEscenario extends Controlador {
     	}
 	}
 	/**
-     * Crea una grilla para organizar los elementos visuales del escenario.
+     * Crea una rejilla para organizar los elementos visuales del escenario.
      * @param alto Número de filas en el escenario
      * @param ancho Número de columnas en el escenario
      */
@@ -418,7 +418,6 @@ public class ControladorEscenario extends Controlador {
     	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacion() + " puntos");
     	pararMusicaEscenario();
     	Controlador.reproducirMusica();
-    	//ventanaTop10();
     	ventana.close();
         controladorMenu.mostrar();
 	}

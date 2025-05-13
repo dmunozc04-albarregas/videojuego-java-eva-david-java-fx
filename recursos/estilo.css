@@ -1,5 +1,10 @@
 .titulo {
     -fx-font-family: "Press Start 2P";
+    -fx-font-size: 34px;
+}
+
+.titulo-2 {
+    -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;
 }
 

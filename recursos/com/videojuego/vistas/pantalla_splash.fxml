@@ -14,26 +14,26 @@
             <Image url="@../../../fondo_splash.png" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="250.0" layoutY="59.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="JUEGO DE LABERINTOS" textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="302.0" layoutY="112.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="CASTLEBIT" textAlignment="CENTER">
          <font>
-            <Font size="24.0" />
+            <Font size="34.0" />
          </font></Text>
-      <Text fill="WHITE" layoutX="250.0" layoutY="290.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="Licencia: GPL v3." textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="250.0" layoutY="290.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo-2" text="Licencia: GPL v3." textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="250.0" layoutY="320.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="Creditos: " textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="250.0" layoutY="320.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo-2" text="Creditos: " textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="350.0" layoutY="350.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="David Muñoz" textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="350.0" layoutY="350.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo-2" text="David Muñoz" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="350.0" layoutY="380.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo" text="Eva Retamar" textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="350.0" layoutY="380.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" styleClass="titulo-2" text="Eva Retamar" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
