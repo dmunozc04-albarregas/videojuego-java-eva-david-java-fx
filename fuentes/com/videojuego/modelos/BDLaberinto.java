@@ -35,21 +35,29 @@ public class BDLaberinto {
 	}
 
 	public static void calcularPuntuacion(String nombreUsuario, ControladorEscenario controladorEscenario){
-		//char nivel = escenario.getNivel();
+		int nivel = controladorEscenario.getNivel();
 		Integer contadorGolpes = controladorEscenario.getNumeroDeGolpes();
 		Integer tiempo = controladorEscenario.getTiempo();
 		Integer puntuacionMaxima = 1500;
 		Integer puntuacionFinal = 0;
 
-		/*switch(nivel){
-			case '1':
-				puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
-				System.out.println(puntuacionFinal);
-				break;
-		}*/
-
-		puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
-		insertarPuntuacion(nombreUsuario, puntuacionFinal);
+		switch (nivel) {
+        	case 1:
+            	puntuacionFinal = (int) Math.floor(puntuacionMaxima - (contadorGolpes * 5 + tiempo * 1.2));
+            	break;
+        	case 2:
+            	puntuacionFinal = (int) Math.floor(puntuacionMaxima - (contadorGolpes * 4 + tiempo));
+            	break;
+        	case 3:
+            	puntuacionFinal = (int) Math.floor(puntuacionMaxima - (contadorGolpes * 3 + tiempo * 0.7));
+            	break;
+        	case 4:
+            	puntuacionFinal = (int) Math.floor(puntuacionMaxima - (contadorGolpes * 2 + tiempo * 0.5));
+            	break;
+        	default:
+            	puntuacionFinal = 0;
+    	}
+    	insertarPuntuacion(nombreUsuario, puntuacionFinal);
 	}
 
 	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {

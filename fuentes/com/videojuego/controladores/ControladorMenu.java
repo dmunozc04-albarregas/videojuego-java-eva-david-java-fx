@@ -93,18 +93,23 @@ public class ControladorMenu {
         Stage stage = (Stage) boton.getScene().getWindow();
 
         String escenarioRuta = "";
+        int nivel = 0;
         switch (boton.getId()) {
             case "btnNivel1":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario1.txt";
+                nivel = 1;
                 break;
             case "btnNivel2":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario2.txt";
+                nivel = 2;
                 break;
             case "btnNivel3":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario3.txt";
+                nivel = 3;
                 break;
             case "btnNivel4":
                 escenarioRuta = "fuentes/com/videojuego/escenarios/escenario4.txt";
+                nivel = 4;
                 break;
             case "btnAyuda": mostrarAyuda();
                 return;
@@ -114,7 +119,7 @@ public class ControladorMenu {
                 return;
         }
 
-        controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this);
+        controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this, nivel);
         
         /*if (boton == btnNivel1) {
             controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario1.txt"), this);
