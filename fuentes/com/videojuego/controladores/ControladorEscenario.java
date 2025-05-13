@@ -76,6 +76,7 @@ public class ControladorEscenario extends Controlador {
 	private static final Integer LOBST = 56;
 	private static boolean puertaBloqueada = false;
 	private static MediaPlayer mediaPlayerEscenario;
+	private static String tiempoFinal;
 	
 	private Escenario escenario;
 	private Jugador jugador;
@@ -311,10 +312,8 @@ public class ControladorEscenario extends Controlador {
     	switch(tipoCelda){
     		case 'F':
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
-    			String tiempoFinal = cronometroLabel.getText();
+    			tiempoFinal = cronometroLabel.getText();
     			timeLine.stop();
- 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacion());
- 		    	System.out.println(segundos);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
 
@@ -414,10 +413,11 @@ public class ControladorEscenario extends Controlador {
 	 * Luego cierra la ventana del nivel y muestra el menú principal.
 	 */
     private void terminarNivel() {
-    	pararMusicaEscenario();
-    	Controlador.reproducirMusica();
     	ControladorAccesoUsuario controladorAccesoUsuario = new ControladorAccesoUsuario();
     	BDLaberinto.calcularPuntuacion(controladorAccesoUsuario.getNombreUsuario(), this);
+    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacion() + " puntos");
+    	pararMusicaEscenario();
+    	Controlador.reproducirMusica();
     	//ventanaTop10();
     	ventana.close();
         controladorMenu.mostrar();

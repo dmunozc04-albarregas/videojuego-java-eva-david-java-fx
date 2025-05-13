@@ -90,44 +90,59 @@ public class BDLaberinto {
      * @param puntos Puntuación obtenida.
      */
 	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {
-	    String sqlInsertar = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
-	    String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
+    String sqlBuscar = "SELECT puntos FROM puntuaciones WHERE nombreUsuario = ?";
+    String sqlActualizar = "UPDATE puntuaciones SET puntos = ? WHERE nombreUsuario = ?";
+    String sqlInsertar = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
+    String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
 
-	    try (Connection conexion = DriverManager.getConnection(URL)) {
-	        Statement stmt = conexion.createStatement();
-	        ResultSet rs = stmt.executeQuery(sqlTop10);
+    try (Connection conexion = DriverManager.getConnection(URL)) {
 
-	        boolean insertar = false;
+        // Verificar si el usuario ya existe
+        PreparedStatement psBuscar = conexion.prepareStatement(sqlBuscar);
+        psBuscar.setString(1, nombreUsuario);
+        ResultSet rsBuscar = psBuscar.executeQuery();
 
-	        // Si hay menos de 10 puntuaciones, siempre se inserta
-	        List<Integer> topPuntos = new ArrayList<>();
-	        while (rs.next()) {
-	            topPuntos.add(rs.getInt("puntos"));
-	        }
+        if (rsBuscar.next()) {
+            PreparedStatement psActualizar = conexion.prepareStatement(sqlActualizar);
+            psActualizar.setInt(1, puntos);
+            psActualizar.setString(2, nombreUsuario);
+            psActualizar.executeUpdate();
+            System.out.println("Puntuación actualizada para " + nombreUsuario);
+        } else {
+            Statement stmt = conexion.createStatement();
+            ResultSet rsTop = stmt.executeQuery(sqlTop10);
 
-	        if (topPuntos.size() < 10) {
-	            insertar = true;
-	        } else {
-	            // Si la puntuación es mejor que la más baja del top 10, también se inserta
-	            int menorTop = topPuntos.get(topPuntos.size() - 1);
-	            if (puntos > menorTop) {
-	                insertar = true;
-	            }
-	        }
+            List<Integer> topPuntos = new ArrayList<>();
+            while (rsTop.next()) {
+                topPuntos.add(rsTop.getInt("puntos"));
+            }
 
-	        if (insertar) {
-	            PreparedStatement ps = conexion.prepareStatement(sqlInsertar);
-	            ps.setString(1, nombreUsuario);
-	            ps.setInt(2, puntos);
-	            ps.executeUpdate();
-	        } else {
-	            System.out.println("La puntuación no entra en el top 10.");
-	        }
+            boolean insertar = false;
+            if (topPuntos.size() < 10) {
+                insertar = true;
+            } else {
+                int menorTop = topPuntos.get(topPuntos.size() - 1);
+                if (puntos > menorTop) {
+                    insertar = true;
+                }
+            }
 
-	    } catch (SQLException e) {
-	        System.out.println("Error insertando: " + e.getMessage());
-	    }
-	}
+            if (insertar) {
+                PreparedStatement psInsertar = conexion.prepareStatement(sqlInsertar);
+                psInsertar.setString(1, nombreUsuario);
+                psInsertar.setInt(2, puntos);
+                psInsertar.executeUpdate();
+                System.out.println("Puntuación insertada para nuevo usuario " + nombreUsuario);
+            } else {
+                System.out.println("La puntuación no entra en el top 10. No se inserta.");
+            }
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error insertando/actualizando puntuación: " + e.getMessage());
+    }
+}
+
  	/**
      * Obtiene una lista con los 10 jugadores con mayor puntuación.
      * @return Lista de los 10 mejores jugadores.
