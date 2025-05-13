@@ -15,6 +15,7 @@ public class BDLaberinto {
 	private static final String URL = "jdbc:sqlite:puntuaciones.db";
 	private static Escenario escenario = new Escenario();
 	private static Jugador jugador = new Jugador();
+	private static int puntuacionFinal;
 	//private static ControladorEscenario controladorEscenario = new ControladorEscenario ();
 
 	public static void crearTabla(){
@@ -29,6 +30,19 @@ public class BDLaberinto {
 			Statement sentencia = conexion.createStatement();
 			sentencia.executeUpdate(sql);
 			System.out.println("Tabla creada.");
+			//Insertar fila por defecto solo si la tabla está vacía
+        	String comprobarVacio = "SELECT COUNT(*) FROM puntuaciones;";
+        	ResultSet rs = sentencia.executeQuery(comprobarVacio);
+        	rs.next();
+        	int cantidad = rs.getInt(1);
+
+	        if (cantidad == 0) {
+	        	 // Insertar 10 jugadores por defecto
+            	for (int i = 0; i < 10; i++) {
+    	        	String insertPorDefecto = "INSERT INTO puntuaciones (nombreUsuario, puntos) VALUES ('-', 0);";
+        	    	sentencia.executeUpdate(insertPorDefecto);
+            	}
+        	}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +53,6 @@ public class BDLaberinto {
 		Integer contadorGolpes = controladorEscenario.getNumeroDeGolpes();
 		Integer tiempo = controladorEscenario.getTiempo();
 		Integer puntuacionMaxima = 1500;
-		Integer puntuacionFinal = 0;
 
 		switch (nivel) {
         	case 1:
@@ -121,4 +134,8 @@ public class BDLaberinto {
         } 
         return top10;
 	}
+
+	public static int getPuntuacionFinal() {
+        return puntuacionFinal;
+    }
 }

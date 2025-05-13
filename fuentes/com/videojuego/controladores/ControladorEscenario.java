@@ -267,7 +267,7 @@ public class ControladorEscenario extends Controlador {
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			String tiempoFinal = cronometroLabel.getText();
     			timeLine.stop();
- 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes);
+ 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacionFinal());
  		    	System.out.println(segundos);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
