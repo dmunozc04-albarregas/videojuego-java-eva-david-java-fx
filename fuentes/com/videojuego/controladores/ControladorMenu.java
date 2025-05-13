@@ -20,10 +20,16 @@ import javafx.stage.Modality;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Clase que gestiona las interacciones del menu. El controlador gestiona los botones de 
+ * selección de nivel, permite cargar diferentes escenarios en función del nivel seleccionado 
+ * y proporciona acceso a la funcionalidad de ayuda y a la visualización del top 10 de jugadores.
+ * @author David Muñoz - Eva Retamar
+ * Licencia GPL v3. Fecha 03 2025
+ */
 public class ControladorMenu {
     private Jugador jugador = new Jugador();
     private ControladorEscenario controladorEscenario;
-    //private ControladorTop10 controladorTop10;
 
     private int nivel;
     private Stage stage;
@@ -33,50 +39,57 @@ public class ControladorMenu {
     private Text nivelTexto;
 
     @FXML
-    private Button btnNivel1;
-
-    @FXML
-    private Button btnNivel2;
-
-    @FXML
-    private Button btnNivel3;
-
-    @FXML
-    private Button btnNivel4;
-
-    @FXML
-    private Button btnAyuda;
-
-    @FXML
-    private Button btnTop10;
-
+    private Button btnNivel1, btnNivel2, btnNivel3, btnNivel4, btnAyuda, btnTop10;
+    /**
+     * Constructor sin parámetros.
+     */
     public ControladorMenu() {
     }
-
+    /**
+     * Constructor con el parámetro Stage.
+     * @param stage El escenario de la ventana principal.
+     */
     public ControladorMenu(Stage stage) {
         this.stage = stage;
     }
-
+    /**
+     * Establece el jugador actual.
+     * @param jugador El jugador que se asignará.
+     */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-
+    /**
+     * Obtiene el jugador actual.
+     * @return El jugador actual.
+     */
     public Jugador getJugador() {
         return jugador;
     }
-
+    /**
+     * Establece el nivel actual.
+     * @param nivel El nivel a establecer.
+     */
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-
+    /**
+     * Establece el nivel actual.
+     * @param nivel El nivel a establecer.
+     */
     public int getNivel() {
         return nivel;
     }
-
+    /**
+     * Establece el escenario de la ventana principal.
+     * @param stage El escenario que se usará en la ventana.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+     /**
+     * Inicializa el controlador. Carga la fuente personalizada y crea la tabla de laberinto.
+     */
     @FXML
     public void initialize() {
         try {
@@ -84,11 +97,13 @@ public class ControladorMenu {
             Font.loadFont(getClass().getResource("/PressStart2P.ttf").toExternalForm(), 10);
             BDLaberinto.crearTabla();
         } catch (Exception e) {
-            // Si ocurre un error al cargar la fuente, se captura y muestra el mensaje de error
             e.printStackTrace();
         }
     }
-
+    /**
+     * Maneja la selección de nivel, cargando el escenario correspondiente y pasando al controlador adecuado.
+     * @param event El evento de acción del botón que se ha pulsado.
+     */
     @FXML
     private void seleccionarNivel(ActionEvent event) {
         Button boton = (Button) event.getSource();        
@@ -120,24 +135,11 @@ public class ControladorMenu {
             default: 
                 return;
         }
-
         controladorEscenario = new ControladorEscenario(stage, Paths.get(escenarioRuta), this, nivel);
-        
-        /*if (boton == btnNivel1) {
-            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario1.txt"), this);
-        } else if (boton == btnNivel2) {
-            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario2.txt"), this);
-        } else if (boton == btnNivel3) {
-            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario3.txt"), this);
-        } else if (boton == btnNivel4) {
-            controladorEscenario = new ControladorEscenario(stage, Paths.get("fuentes/com/videojuego/escenarios/escenario4.txt"), this);
-        } else if (boton == btnAyuda) {
-            mostrarAyuda();
-        //} else if (boton == btnTop10) {
-            //controladorTop10 = new ControladorTop10(stage, "/com/videojuego/vistas/vistaTop10.fxml", this);
-        }*/
     }
-
+    /**
+     * Muestra el menú del juego en una nueva ventana.
+     */
     public void mostrar() {
         escenaMenu = Controlador.cargarVista("/com/videojuego/vistas/vistaMenu.fxml");
         Stage menu = new Stage();
@@ -147,12 +149,17 @@ public class ControladorMenu {
         menu.initModality(Modality.APPLICATION_MODAL); // Si quieres bloquear otras ventanas
         menu.show();
     }
-
+    /**
+     * Cierra la ventana actual del botón que llama a este método.
+     * @param boton El botón que activó la acción.
+     */
     public void cerrarVentanaActual(Button boton) {
         Stage ventanaActual = (Stage) boton.getScene().getWindow();
         ventanaActual.close();
     }    
-
+    /**
+     * Muestra la ventana de ayuda en una nueva ventana modal.
+     */
     @FXML
     private void mostrarAyuda() {
         try {
@@ -174,7 +181,9 @@ public class ControladorMenu {
             Controlador.mostrarAlerta("Error al mostrar la ventana ayuda");
         }
     }
-
+    /**
+     * Muestra la ventana del Top 10 de jugadores en una nueva ventana modal.
+     */
     @FXML
     private void mostrarTop10() {
         try {

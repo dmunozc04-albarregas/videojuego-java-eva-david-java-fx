@@ -32,7 +32,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;    
 
-
+/**
+ * Controlador encargado de gestionar las interacciones del escenario en el juego.
+ * Administra el movimiento del personaje, la visualización del mapa, el cronómetro y la música.
+ * @author David Muñoz - Eva Retamar
+ * Licencia GPL v3. Fecha 03 2025
+ */
 public class ControladorEscenario extends Controlador {
 	private Stage ventana;
 	private Scene vista1;
@@ -74,9 +79,18 @@ public class ControladorEscenario extends Controlador {
 	
 	private Escenario escenario;
 	private Jugador jugador;
-
+	/**
+     * Constructor por defecto.
+     */
 	public ControladorEscenario(){}
-
+	/**
+     * Inicializa el controlador con los parámetros proporcionados y
+     * carga el escenario correspondiente.
+     * @param ventana          La ventana principal de la aplicación (Stage) donde se mostrará la escena.
+     * @param rutaEscenario    La ruta al archivo del escenario que se va a cargar.
+     * @param controladorMenu  El controlador del menú principal para gestionar el acceso a la configuración y la interacción del usuario.
+     * @param nivel            El nivel actual del juego, que determinará qué escenario se carga y su dificultad.
+     */
 	public ControladorEscenario(Stage ventana, Path rutaEscenario, ControladorMenu controladorMenu, int nivel) {
 		try{
 			this.ventana = ventana;
@@ -93,12 +107,16 @@ public class ControladorEscenario extends Controlador {
     			e.printStackTrace();
 			}
         	inicializarVista();
-    	} catch (Exception e) {  // Captura cualquier otra excepción inesperada
+    	} catch (Exception e) {  
         	e.printStackTrace();
         	Controlador.mostrarAlerta("Error al cargar el escenario");
     	}
     }
-
+    /**
+     * Carga el escenario desde el archivo de texto proporcionado.
+     * @param rutaEscenario Ruta del archivo de escenario
+     * @throws Exception Si ocurre un error al cargar el escenario
+     */
     private void cargarEscenario(Path rutaEscenario) throws Exception{
     	 //Cargar escenario y sus dimensiones
         this.escenario = new Escenario(rutaEscenario);
@@ -107,9 +125,10 @@ public class ControladorEscenario extends Controlador {
         stackPanes = new StackPane[alto][ancho];
         imgEscenario = new Image(this.getClass().getResourceAsStream("/fantasy_tiles.png"));
     }
-
+    /**
+     * Inicializa la vista, crea la interfaz gráfica y configura el control del teclado.
+     */
     private void inicializarVista() {
-    	//BDLaberinto.crearTabla();
     	//Cargamos las vistas del Controlador
 		vista1 = cargarVistaConControlador(this, "vista1");
 		vista2 = cargarVistaConControlador(this, "vista2");
@@ -133,7 +152,9 @@ public class ControladorEscenario extends Controlador {
         // Mostrar el escenario
         mostrarEscenario(escenario.getMapa());
     }
-
+    /**
+     * Reproduce la música de fondo para el escenario.
+     */
     private void reproducirMusicaEscenario(){
     	String pathMusica = "recursos/8_bit.mp3";
 
@@ -144,11 +165,15 @@ public class ControladorEscenario extends Controlador {
         mediaPlayerEscenario.setCycleCount(MediaPlayer.INDEFINITE); // Repetir en bucle
         mediaPlayerEscenario.play(); // Iniciar reproducción
     }
-
+    /**
+     * Detiene la música de fondo.
+     */
     private void pararMusicaEscenario(){
     	mediaPlayerEscenario.stop();
     }
-
+    /**
+     * Configura los controles de teclado para mover al jugador por el escenario.
+     */
     private void configurarControlesTeclado() {
     	vista1.setOnKeyPressed(event -> {
     		// Si la tecla presionada es una de las teclas de dirección
@@ -178,7 +203,10 @@ public class ControladorEscenario extends Controlador {
     		}
 		});
 	}
-
+	/**
+     * Muestra el escenario en la interfaz gráfica.
+     * @param mapa El mapa del escenario a mostrar
+     */
 	public void mostrarEscenario(char[][] mapa) {
 	   	for (int i = 0; i < mapa.length; i++) {
     	    for (int j = 0; j < mapa[i].length; j++) {
@@ -194,16 +222,20 @@ public class ControladorEscenario extends Controlador {
     	inicializarPersonaje();
   	   	posicionarJugador();
 	}
-
+	/**
+     * Inicializa el personaje en el escenario con la imagen correspondiente.
+     */
     private void inicializarPersonaje() {
         Image imgPersonaje = new Image(this.getClass().getResourceAsStream("/personaje_animado.gif"));
         ivPersonaje = new ImageView(imgPersonaje);
         ivPersonaje.setFitHeight(30);
         ivPersonaje.setPreserveRatio(true);
-        //Rectangle2D vpPersonaje = new Rectangle2D(1*100, 2*100, 100, 100);
-		//ivPersonaje.setViewport(vpPersonaje);
     }
-
+    /**
+     * Devuelve la porción de la imagen que corresponde a un tipo de celda en el escenario.
+     * @param tipo El tipo de celda ('O', 'B', 'P', 'F', etc.)
+     * @return El área de la imagen correspondiente a la celda
+     */
 	private Rectangle2D obtenerViewport(char tipo) {
 	    switch (tipo) {
     	    case 'O':
@@ -218,7 +250,11 @@ public class ControladorEscenario extends Controlador {
             	return new Rectangle2D(18.5*LADO, 7* LADO, LADO, LADO);
     	}
 	}
-
+	/**
+     * Crea una grilla para organizar los elementos visuales del escenario.
+     * @param alto Número de filas en el escenario
+     * @param ancho Número de columnas en el escenario
+     */
 	private void crearGrid(Integer alto, Integer ancho) {
 		for(int i = 0; i < alto; i++) {
         	gridPane.getRowConstraints().add(new RowConstraints()); 
@@ -232,7 +268,11 @@ public class ControladorEscenario extends Controlador {
 			}
 		}
 	}
-
+	/**
+     * Crea un StackPane para cada celda en el escenario.
+     * @param fila Fila donde se coloca el StackPane
+     * @param columna Columna donde se coloca el StackPane
+     */
 	private void crearStackPane(int fila, int columna) {
         StackPane stackPane = new StackPane();
         stackPanes[fila][columna] = stackPane;
@@ -243,7 +283,9 @@ public class ControladorEscenario extends Controlador {
         stackPane.getChildren().add(imageView);
         gridPane.add(stackPane, columna, fila);
     }
-
+    /**
+     * Posiciona al jugador en el escenario en la celda correspondiente.
+     */
     private void posicionarJugador() {
     	char[][] mapa = escenario.getMapa();
     	for (int i = 0; i < mapa.length; i++) {
@@ -258,7 +300,11 @@ public class ControladorEscenario extends Controlador {
     		}
     	}
     }
-
+    /**
+     * Mueve al personaje a la nueva posición especificada.
+     * @param nuevaFila Nueva fila a la que se mueve el personaje
+     * @param nuevaCol Nueva columna a la que se mueve el personaje
+     */
 	private void moverPersonaje(int nuevaFila, int nuevaCol) {
     	char tipoCelda = escenario.getMapa()[nuevaFila][nuevaCol];
 
@@ -267,7 +313,7 @@ public class ControladorEscenario extends Controlador {
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			String tiempoFinal = cronometroLabel.getText();
     			timeLine.stop();
- 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacionFinal());
+ 		    	Controlador.mostrarAlerta("¡Enhorabuena! Has llegado al final..." + "\n" + "Tiempo tardado: " + tiempoFinal + "\n" + "Número de golpes: " + contadorDeGolpes + "\n" + "Puntuación: " + BDLaberinto.getPuntuacion());
  		    	System.out.println(segundos);
         		terminarNivel(); // Terminar nivel si es celda de portal
         		return;
@@ -285,7 +331,6 @@ public class ControladorEscenario extends Controlador {
     				actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     			}
     			else{
-    				//Controlador.mostrarAlerta("Esta puerta está bloqueada");
     				mensajeAlerta("Esta puerta está bloqueada");
     			}
     			return;
@@ -293,44 +338,32 @@ public class ControladorEscenario extends Controlador {
     			actualizarPosicionPersonaje(nuevaFila, nuevaCol);
     	}
     }
-
+    /**
+     * Actualiza la posición del personaje en el escenario.
+     * @param nuevaFila  La nueva fila a la que se mueve el personaje.
+     * @param nuevaCol   La nueva columna a la que se mueve el personaje.
+     */
     private void actualizarPosicionPersonaje(int nuevaFila, int nuevaCol) {
-    	//stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
-
     	// Evitar movimiento redundante
     	if (filaPersonaje == nuevaFila && colPersonaje == nuevaCol) {
         	return;
     	}
-
     	// Eliminar de la celda anterior
     	stackPanes[filaPersonaje][colPersonaje].getChildren().remove(ivPersonaje);
-
     	// Añadir a la nueva celda si no está ya
     	if (!stackPanes[nuevaFila][nuevaCol].getChildren().contains(ivPersonaje)) {
         	stackPanes[nuevaFila][nuevaCol].getChildren().add(ivPersonaje);
     	}
-
     	// Actualizar posición
     	filaPersonaje = nuevaFila;
     	colPersonaje = nuevaCol;
 	}
-
-	/*public void iniciarJuego(Path rutaEscenario) {
-		try{
-			char[][] mapa = cargarEscenario(rutaEscenario);
-
-			for (int i = 0; i < mapa.length; i++) {
-    			for (int j = 0; j < mapa[i].length; j++) {
-        			//System.out.print(mapa[i][j] + " ");
-    			}
-    			//System.out.println();  // Para saltar a la siguiente línea después de cada fila
-			}
-			mostrarEscenario(mapa);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-
+	/**
+ 	 * Carga una vista FXML y la asocia con el controlador proporcionado. 
+	 * @param controlador El controlador que gestionará la vista cargada.
+	 * @param nombre      El nombre del archivo FXML (sin la extensión).
+	 * @return La escena cargada con la vista y el controlador asociados.
+	 */
 	private Scene cargarVistaConControlador(ControladorEscenario controlador, String nombre) {
         Scene vista = null;
         try {
@@ -345,7 +378,10 @@ public class ControladorEscenario extends Controlador {
         }
         return vista;
     }
-
+    /**
+	 * Inicia un cronómetro que actualiza cada segundo y muestra el tiempo transcurrido
+	 * en un formato "mm:ss" en el label correspondiente.
+	 */
 	private void iniciarCronometro() {
 	    timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
 	        segundos++;
@@ -360,7 +396,10 @@ public class ControladorEscenario extends Controlador {
 	    timeLine.setCycleCount(Timeline.INDEFINITE);
 	    timeLine.play();
 	}
-
+	/**
+	 * Muestra un mensaje de alerta en pantalla durante 1 segundo.
+	 * @param texto El texto que se mostrará en el mensaje de alerta.
+	 */
 	private void mensajeAlerta(String texto){
 		labelChoque.setText(texto);
 		labelChoque.setVisible(true);
@@ -370,7 +409,10 @@ public class ControladorEscenario extends Controlador {
     	});
     	espera.play();
 	}
-
+	/**
+	 * Termina el nivel actual, detiene la música del escenario y calcula la puntuación del jugador.
+	 * Luego cierra la ventana del nivel y muestra el menú principal.
+	 */
     private void terminarNivel() {
     	pararMusicaEscenario();
     	Controlador.reproducirMusica();
@@ -380,19 +422,35 @@ public class ControladorEscenario extends Controlador {
     	ventana.close();
         controladorMenu.mostrar();
 	}
-
+	/**
+	 * Establece el nivel actual del juego.
+	 * 
+	 * @param nivel El nuevo nivel a establecer.
+	 */
 	public void setNivel(int nivel) {
 	    this.nivel = nivel;
 	}
-
+	/**
+	 * Obtiene el nivel actual del juego.
+	 * 
+	 * @return El nivel actual.
+	 */
 	public int getNivel() {
     	return nivel;
 	}
-
+	/**
+	 * Obtiene el número total de golpes realizados por el jugador.
+	 * 
+	 * @return El número de golpes.
+	 */
 	public Integer getNumeroDeGolpes(){
     	return contadorDeGolpes;
     }
-
+	/**
+	 * Obtiene el tiempo transcurrido en segundos.
+	 * 
+	 * @return El tiempo transcurrido en segundos.
+	 */
     public Integer getTiempo(){
     	return segundos;
     }

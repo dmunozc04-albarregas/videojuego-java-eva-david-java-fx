@@ -1,7 +1,6 @@
 package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
-//import com.videojuego.modelos.Escenario;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
+/**
+ * Controlador encargado de gestionar el acceso del usuario al juego.
+ * @author David Muñoz - Eva Retamar
+ * Licencia GPL v3. Fecha 03 2025
+ */
 public class ControladorAccesoUsuario {
 
     @FXML
@@ -29,7 +32,10 @@ public class ControladorAccesoUsuario {
 
     private Jugador jugador = new Jugador();
     private static String nombreUsuario = null;
-
+    /**
+     * Comprueba si el nombre de usuario introducido existe.  
+     * Si existe, accede al menú del juego; si no, abre la ventana de registro.
+     */
     @FXML
     private void comprobarNombreUsuario() {
         nombreUsuario = nombreUsuarioAComprobar.getText().trim();
@@ -43,11 +49,12 @@ public class ControladorAccesoUsuario {
             Controlador.mostrarAlerta("¡Entrando al juego...");
             ventanaControladorMenu();
         } else {
-            //mostrarAlerta("El usuario no existe.");
             ventanaRegistroUsuario();
         }
     }
-
+    /**
+     * Abre la ventana de registro de usuario en una ventana modal.
+     */
     private void ventanaRegistroUsuario() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/registrar_usuario.fxml"));
@@ -73,7 +80,9 @@ public class ControladorAccesoUsuario {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Abre la ventana del menú principal del juego.
+     */
     public void ventanaControladorMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/vistaMenu.fxml"));
@@ -97,11 +106,17 @@ public class ControladorAccesoUsuario {
             Controlador.mostrarAlerta("ERROR al cargar la ventana del menú.");
         }
     }
-
+    /**
+     * Devuelve el nombre del usuario introducido.
+     * @return nombre del usuario
+     */
     public String getNombreUsuario(){
         return nombreUsuario;
     }
-
+    /**
+     * Establece el nombre del usuario en el campo de texto.
+     * @param nombre nombre a establecer
+     */
     public void setNombreUsuario(String nombre) {
         nombreUsuarioAComprobar.setText(nombre);
     }

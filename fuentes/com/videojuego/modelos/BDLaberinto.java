@@ -11,16 +11,22 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Clase que gestiona la base de datos de puntuaciones del videojuego. 
+ * @author David Muñoz - Eva Retamar
+ * Licencia GPL v3. Fecha 03 2025
+ */
 public class BDLaberinto {
 	private static final String URL = "jdbc:sqlite:puntuaciones.db";
 	private static Escenario escenario = new Escenario();
 	private static Jugador jugador = new Jugador();
-	private static int puntuacionFinal;
-	//private static ControladorEscenario controladorEscenario = new ControladorEscenario ();
-
+	private static int puntuacion = 0;
+	
+	/**
+     * Crea la tabla 'puntuaciones' si no existe y la rellena con valores por defecto si está vacía.
+     */
 	public static void crearTabla(){
 		try(Connection conexion = DriverManager.getConnection(URL)) {
-			System.out.println("Conexión realizada");
 			String sql = "CREATE TABLE IF NOT EXISTS puntuaciones ("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "nombreUsuario TEXT NOT NULL,"
@@ -29,8 +35,7 @@ public class BDLaberinto {
 
 			Statement sentencia = conexion.createStatement();
 			sentencia.executeUpdate(sql);
-			System.out.println("Tabla creada.");
-			//Insertar fila por defecto solo si la tabla está vacía
+			//Insertar 10 filas por defecto solo si la tabla está vacía
         	String comprobarVacio = "SELECT COUNT(*) FROM puntuaciones;";
         	ResultSet rs = sentencia.executeQuery(comprobarVacio);
         	rs.next();
@@ -47,12 +52,18 @@ public class BDLaberinto {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+     * Calcula la puntuación final basada en el nivel, número de golpes y tiempo.
+     * Luego intenta insertarla en el top 10.
+     * @param nombreUsuario Nombre del jugador.
+     * @param controladorEscenario Controlador del escenario actual.
+     */
 	public static void calcularPuntuacion(String nombreUsuario, ControladorEscenario controladorEscenario){
 		int nivel = controladorEscenario.getNivel();
 		Integer contadorGolpes = controladorEscenario.getNumeroDeGolpes();
 		Integer tiempo = controladorEscenario.getTiempo();
 		Integer puntuacionMaxima = 1500;
+		int puntuacionFinal = 0;
 
 		switch (nivel) {
         	case 1:
@@ -70,9 +81,14 @@ public class BDLaberinto {
         	default:
             	puntuacionFinal = 0;
     	}
+    	setPuntuacion(puntuacionFinal);
     	insertarPuntuacion(nombreUsuario, puntuacionFinal);
 	}
-
+	/**
+     * Inserta una puntuación en la base de datos solo si entra en el top 10.
+     * @param nombreUsuario Nombre del jugador.
+     * @param puntos Puntuación obtenida.
+     */
 	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {
 	    String sqlInsertar = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
 	    String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
@@ -104,7 +120,6 @@ public class BDLaberinto {
 	            ps.setString(1, nombreUsuario);
 	            ps.setInt(2, puntos);
 	            ps.executeUpdate();
-	            System.out.println("Puntuación insertada correctamente.");
 	        } else {
 	            System.out.println("La puntuación no entra en el top 10.");
 	        }
@@ -113,8 +128,10 @@ public class BDLaberinto {
 	        System.out.println("Error insertando: " + e.getMessage());
 	    }
 	}
-
-
+ 	/**
+     * Obtiene una lista con los 10 jugadores con mayor puntuación.
+     * @return Lista de los 10 mejores jugadores.
+     */
 	public static List<Jugador> obtenerTop10() {
 		List<Jugador> top10 = new ArrayList<>();
 		String sql = "SELECT nombreUsuario, puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
@@ -123,7 +140,6 @@ public class BDLaberinto {
              Statement sentencia = conexion.createStatement();
              ResultSet resultado = sentencia.executeQuery(sql)) {
 
-            System.out.println("TOP 10:");
             while (resultado.next()) {
 				String nombreUsuario = resultado.getString("nombreUsuario");
             	int puntos = resultado.getInt("puntos");
@@ -134,8 +150,15 @@ public class BDLaberinto {
         } 
         return top10;
 	}
+	/**
+     * Devuelve la última puntuación calculada.
+     * @return Puntuación final.
+     */
+	public static int getPuntuacion() {
+        return puntuacion;
+    }
 
-	public static int getPuntuacionFinal() {
-        return puntuacionFinal;
+    public static void setPuntuacion(int nuevaPuntuacion) {
+        puntuacion = nuevaPuntuacion;
     }
 }

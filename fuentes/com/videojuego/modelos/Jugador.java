@@ -23,8 +23,8 @@ public class Jugador implements Serializable{
 	private String nombreUsuario;
 	private String email;
 	private int puntos;
-	private int fila; // Agregado: posición fila del jugador
-    private int columna; // Agregado: posición columna del jugador
+	private int fila; 
+    private int columna; 
 
 	/**
 	 * Constructor sin parametrizar de la clase Jugador.
@@ -36,7 +36,6 @@ public class Jugador implements Serializable{
 		this.fila = fila;
         this.columna = columna;
 	}
-
 	/**
 	 * Constructor parametrizado de la clase Jugador.
 	 * @param nombreUsuario Nombre de usuario del jugador.
@@ -46,7 +45,6 @@ public class Jugador implements Serializable{
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
 	}
-
 	/**
 	 * Constructor parametrizado de la clase Jugador.
 	 * @param nombreUsuario Nombre de usuario del jugador.
@@ -56,7 +54,6 @@ public class Jugador implements Serializable{
 		this.nombreUsuario = nombreUsuario;
 		this.puntos = puntos;
 	}
-
 	/**
 	 * Método para comprobar si existe el usuario.
 	 * @param nombreUsuario Nombre del jugador a comprobar.
@@ -78,7 +75,6 @@ public class Jugador implements Serializable{
        }
        return false;
     }
-
     /**
 	 * Método para crear el jugador en caso de que no exista.
 	 * @param nombreUsuario Nombre de usuario del jugador.
@@ -101,63 +97,54 @@ public class Jugador implements Serializable{
         	e.printStackTrace();
         }
 	}
-
 	/**
 	 * Setter para el nombre de usuario del jugador.
 	 */
 	public void setNombreUsuario(String nombreUsuario){
 		this.nombreUsuario = nombreUsuario;
 	}
-
 	/**
 	 * Setter para el correo electrónico del jugador.
 	 */
 	public void setEmail(String email){
 		this.email = email;
 	}
-
 	/**
      * Setter para la posición fila del jugador.
      */
     public void setFila(int fila) {
         this.fila = fila;
     }
-
 	/**
      * Setter para la posición columna del jugador.
      */
     public void setColumna(int columna) {
         this.columna = columna;
     }
-
 	/**
 	 * Método para obtener el nombre de usuario.
 	 */
 	public String getNombreUsuario(){
 		return nombreUsuario;
 	}
-
 	/**
 	 * Método para obtener el correo electrónico del jugador.
 	 */
 	public String getEmail(){
 		return email;
 	}
-
 	/**
 	 * Método para obtener los puntos del jugador del jugador.
 	 */
 	public int getPuntos() {
         return puntos;
     }
-
 	/**
      * Getter para la posición fila del jugador.
      */
     public int getFila() {
         return fila;
     }
-
     /**
      * Getter para la posición columna del jugador.
      */
