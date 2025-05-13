@@ -143,8 +143,8 @@ public class BDLaberinto {
             while (resultado.next()) {
 				String nombreUsuario = resultado.getString("nombreUsuario");
             	int puntos = resultado.getInt("puntos");
-            	top10.add(new Jugador(nombreUsuario, puntos));            }
-
+            	top10.add(new Jugador(nombreUsuario, puntos));
+            }
         } catch (SQLException e) {
             System.out.println("Error mostrando top: " + e.getMessage());
         } 

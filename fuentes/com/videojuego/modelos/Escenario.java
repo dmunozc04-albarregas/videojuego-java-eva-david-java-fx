@@ -80,10 +80,10 @@ public class Escenario {
 	    List<char[]> mapaLista = new ArrayList<>();
     	for (String linea : lineas) {
         	String[] elementos = linea.trim().split(" ");
-        	List<Character> fila = new ArrayList<>();
+        	List<Character> fila = new ArrayList<>(); //Versión en objeto de char.
     		for (String elemento : elementos) {
     			// Validar formato: uno o más dígitos seguidos de una letra
-            	if (!elemento.matches("\\d+[A-Za-z]")) { // puedes ajustar las letras si solo permites ciertas
+            	if (!elemento.matches("\\d+[A-Za-z]")) { 
                 	throw new IOException("Formato inválido en elemento: " + elemento);
             	}
         		int cantidad = Integer.parseInt(elemento.substring(0, elemento.length() - 1));

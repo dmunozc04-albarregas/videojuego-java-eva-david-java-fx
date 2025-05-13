@@ -31,14 +31,12 @@ public class App extends Application{
         comprobarFicheroConfiguracion();
         Jugador jugador = new Jugador();
         launch(args);
-        //controlador.iniciarJuego();
         teclado.close();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         controladorVistas = new ControladorVistas(stage);
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
     }
 
     /**
