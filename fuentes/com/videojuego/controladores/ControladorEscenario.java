@@ -55,6 +55,8 @@ public class ControladorEscenario extends Controlador {
 	@FXML
 	private Label labelChoque;
 
+	private int nivel;
+
 	private StackPane[][] stackPanes;
 	private Path rutaEscenario;	
 	private int alto;
@@ -75,10 +77,11 @@ public class ControladorEscenario extends Controlador {
 
 	public ControladorEscenario(){}
 
-	public ControladorEscenario(Stage ventana, Path rutaEscenario, ControladorMenu controladorMenu) {
+	public ControladorEscenario(Stage ventana, Path rutaEscenario, ControladorMenu controladorMenu, int nivel) {
 		try{
 			this.ventana = ventana;
 			this.controladorMenu = controladorMenu;
+			this.nivel = nivel;
 			Controlador.pararMusica();
 			reproducirMusicaEscenario();
 			ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
@@ -376,6 +379,14 @@ public class ControladorEscenario extends Controlador {
     	//ventanaTop10();
     	ventana.close();
         controladorMenu.mostrar();
+	}
+
+	public void setNivel(int nivel) {
+	    this.nivel = nivel;
+	}
+
+	public int getNivel() {
+    	return nivel;
 	}
 
 	public Integer getNumeroDeGolpes(){
