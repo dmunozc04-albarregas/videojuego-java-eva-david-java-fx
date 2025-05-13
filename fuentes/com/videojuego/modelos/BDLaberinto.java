@@ -49,9 +49,6 @@ public class BDLaberinto {
 		}*/
 
 		puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
-
-		System.out.println(controladorEscenario.getNumeroDeGolpes());
-		System.out.println(controladorEscenario.getTiempo());
 		insertarPuntuacion(nombreUsuario, puntuacionFinal);
 	}
 
