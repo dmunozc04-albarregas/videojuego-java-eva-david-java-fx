@@ -2,6 +2,7 @@ package com.videojuego.controladores;
 
 import com.videojuego.modelos.Jugador;
 import com.videojuego.controladores.ControladorEscenario;
+import com.videojuego.modelos.BDLaberinto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -81,6 +82,7 @@ public class ControladorMenu {
         try {
             // Cargar la fuente personalizada en el controlador
             Font.loadFont(getClass().getResource("/PressStart2P.ttf").toExternalForm(), 10);
+            BDLaberinto.crearTabla();
         } catch (Exception e) {
             // Si ocurre un error al cargar la fuente, se captura y muestra el mensaje de error
             e.printStackTrace();
