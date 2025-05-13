@@ -91,14 +91,6 @@ public class ControladorEscenario extends Controlador {
     	}
     }
 
-    public Integer getNumeroDeGolpes(){
-    	return contadorDeGolpes;
-    }
-
-    public Integer getTiempo(){
-    	return segundos;
-    }
-
     private void cargarEscenario(Path rutaEscenario) throws Exception{
     	 //Cargar escenario y sus dimensiones
         this.escenario = new Escenario(rutaEscenario);
@@ -357,7 +349,8 @@ public class ControladorEscenario extends Controlador {
 	}
 
     private void terminarNivel() {
-    	BDLaberinto.calcularPuntuacion(ControladorAccesoUsuario.getNombreUsuario());
+    	ControladorAccesoUsuario controladorAccesoUsuario = new ControladorAccesoUsuario();
+    	BDLaberinto.calcularPuntuacion(controladorAccesoUsuario.getNombreUsuario(), this);
     	PauseTransition espera = new PauseTransition(Duration.seconds(2));
     	espera.setOnFinished(event -> {
         	//ventanaTop10();
@@ -366,17 +359,12 @@ public class ControladorEscenario extends Controlador {
     	});
     	espera.play();
 	}
-    /*private void ventanaTop10() {
-    	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/videojuego/vistas/top10.fxml"));
-			Parent root = loader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Top 10 jugadores");
-			stage.setScene(new Scene(root));
-			stage.show();
-    	} catch (IOException e) {
-        	e.printStackTrace(); 
-    	}	
-    }*/
 
+	public Integer getNumeroDeGolpes(){
+    	return contadorDeGolpes;
+    }
+
+    public Integer getTiempo(){
+    	return segundos;
+    }
 }

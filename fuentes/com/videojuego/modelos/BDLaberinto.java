@@ -15,7 +15,7 @@ public class BDLaberinto {
 	private static final String URL = "jdbc:sqlite:puntuaciones.db";
 	private static Escenario escenario = new Escenario();
 	private static Jugador jugador = new Jugador();
-	private static ControladorEscenario controladorEscenario = new ControladorEscenario ();
+	//private static ControladorEscenario controladorEscenario = new ControladorEscenario ();
 
 	public static void crearTabla(){
 		try(Connection conexion = DriverManager.getConnection(URL)) {
@@ -34,7 +34,7 @@ public class BDLaberinto {
 		}
 	}
 
-	public static void calcularPuntuacion(String nombreUsuario){
+	public static void calcularPuntuacion(String nombreUsuario, ControladorEscenario controladorEscenario){
 		//char nivel = escenario.getNivel();
 		Integer contadorGolpes = controladorEscenario.getNumeroDeGolpes();
 		Integer tiempo = controladorEscenario.getTiempo();
@@ -50,47 +50,52 @@ public class BDLaberinto {
 
 		puntuacionFinal = (int) Math.floor((puntuacionMaxima - ((contadorGolpes * 2) + (tiempo * 0.5))));
 
-		System.out.println(nombreUsuario);
-		//insertarPuntuacion(jugador.getNombreUsuario(), puntuacionFinal);
+		System.out.println(controladorEscenario.getNumeroDeGolpes());
+		System.out.println(controladorEscenario.getTiempo());
+		insertarPuntuacion(nombreUsuario, puntuacionFinal);
 	}
 
 	public static void insertarPuntuacion(String nombreUsuario, Integer puntos) {
-		Integer contador = 0;
-		boolean actualizado = false;
-		String sql = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
-		String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
-		try (Connection conexion = DriverManager.getConnection(URL)){
-        	Statement stmt = conexion.createStatement();
+	    String sqlInsertar = "INSERT INTO puntuaciones(nombreUsuario, puntos) VALUES (?, ?)";
+	    String sqlTop10 = "SELECT puntos FROM puntuaciones ORDER BY puntos DESC LIMIT 10";
+
+	    try (Connection conexion = DriverManager.getConnection(URL)) {
+	        Statement stmt = conexion.createStatement();
 	        ResultSet rs = stmt.executeQuery(sqlTop10);
 
-			do{
-			   if (rs.next()) {
-		            int puntosExistente = rs.getInt("puntos");
-		            
-		            if (puntos > puntosExistente) {
-		                PreparedStatement ps = conexion.prepareStatement(sql);
-		                ps.setString(1, nombreUsuario);
-		                ps.setInt(2, puntos);
-		                ps.executeUpdate();
-		                actualizado = true;
-		            }
+	        boolean insertar = false;
 
-		            else {
-	                    PreparedStatement ps = conexion.prepareStatement(sql);
-	                    ps.setString(1, nombreUsuario);
-	                    ps.setInt(2, puntos);
-	                    ps.executeUpdate();
-	                    actualizado = true;
-                	}
+	        // Si hay menos de 10 puntuaciones, siempre se inserta
+	        List<Integer> topPuntos = new ArrayList<>();
+	        while (rs.next()) {
+	            topPuntos.add(rs.getInt("puntos"));
+	        }
 
-                	contador++;
-				}
-			}
-			while(contador < 11 || actualizado == true);
-        } catch (SQLException e) {
-            System.out.println("Error insertando: " + e.getMessage());
-        }
+	        if (topPuntos.size() < 10) {
+	            insertar = true;
+	        } else {
+	            // Si la puntuación es mejor que la más baja del top 10, también se inserta
+	            int menorTop = topPuntos.get(topPuntos.size() - 1);
+	            if (puntos > menorTop) {
+	                insertar = true;
+	            }
+	        }
+
+	        if (insertar) {
+	            PreparedStatement ps = conexion.prepareStatement(sqlInsertar);
+	            ps.setString(1, nombreUsuario);
+	            ps.setInt(2, puntos);
+	            ps.executeUpdate();
+	            System.out.println("Puntuación insertada correctamente.");
+	        } else {
+	            System.out.println("La puntuación no entra en el top 10.");
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error insertando: " + e.getMessage());
+	    }
 	}
+
 
 	public static List<Jugador> obtenerTop10() {
 		List<Jugador> top10 = new ArrayList<>();

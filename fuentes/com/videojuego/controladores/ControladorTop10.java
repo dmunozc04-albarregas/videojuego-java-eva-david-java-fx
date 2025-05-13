@@ -27,7 +27,7 @@ public class ControladorTop10 {
         contenedorTop10.setSpacing(10); 
 
         int totalMostrado = 0;
-        int espacioColumna = 60;
+        int espacioColumna = 0;
 
         for (Jugador j : listaTop10) {
             String textoNombre = j.getNombreUsuario();
@@ -37,6 +37,7 @@ public class ControladorTop10 {
                 textoNombre = "-";
                 valorPuntos = 0;
             }
+            System.out.println("Jugador: " + j.getNombreUsuario() + " -> " + j.getPuntos());
 
             agregarFila(textoNombre, valorPuntos, espacioColumna);
             totalMostrado++;
@@ -48,20 +49,37 @@ public class ControladorTop10 {
         }
     }
 
-    private void agregarFila(String nombreStr, int puntosValor, int espacioColumna) {
-        Label nombre = new Label(nombreStr);
-        Label puntos = new Label(String.valueOf(puntosValor));
+     private void agregarFila(String nombreStr, int puntosValor, int espacioColumna) {
+    Label nombre = new Label(nombreStr);
+    Label puntos = new Label(String.valueOf(puntosValor));
 
-        nombre.setFont(fuente);
-        puntos.setFont(fuente);
-    
-        nombre.setStyle("-fx-text-fill: white; -fx-alignment: center;");
-        puntos.setStyle("-fx-text-fill: white; -fx-alignment: center;");
+    nombre.setFont(fuente);
+    puntos.setFont(fuente);
 
-        HBox fila = new HBox(espacioColumna); // espacio entre columnas
-        fila.getChildren().addAll(nombre, puntos);
+    // Ancho fijo para alineación perfecta
+    nombre.setMinWidth(130);
+    nombre.setMaxWidth(130);
+    puntos.setMinWidth(60);
+    puntos.setMaxWidth(60);
 
-        contenedorTop10.getChildren().add(fila);
-    }
+    // Alineación dentro del Label
+    nombre.setStyle("-fx-text-fill: white;");
+    puntos.setStyle("-fx-text-fill: white;");
+
+    // Crea un contenedor para cada columna y alínea su contenido
+    HBox contenedorNombre = new HBox(nombre);
+    HBox contenedorPuntos = new HBox(puntos);
+
+    contenedorNombre.setMinWidth(130);
+    contenedorPuntos.setMinWidth(60);
+
+    contenedorNombre.setStyle("-fx-alignment: center-left;");
+    contenedorPuntos.setStyle("-fx-alignment: center-right;");
+
+    HBox fila = new HBox(espacioColumna);
+    fila.getChildren().addAll(contenedorNombre, contenedorPuntos);
+
+    contenedorTop10.getChildren().add(fila);
+}
 
 }

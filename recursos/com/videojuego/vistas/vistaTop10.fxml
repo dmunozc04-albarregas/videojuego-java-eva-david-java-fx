@@ -13,5 +13,5 @@
    </ImageView>
    
    <!-- Contenedor principal para la lista de jugadores -->
-   <VBox fx:id="contenedorTop10" layoutX="145.0" layoutY="175.0" spacing="5.0" />
+   <VBox fx:id="contenedorTop10" layoutX="120.0" layoutY="187.0" spacing="5.0" />
 </AnchorPane>
