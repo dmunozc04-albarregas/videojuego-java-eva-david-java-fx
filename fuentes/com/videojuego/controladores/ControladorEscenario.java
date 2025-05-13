@@ -28,8 +28,9 @@ import javafx.scene.control.Label;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
-
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;    
 
 
 public class ControladorEscenario extends Controlador {
@@ -37,6 +38,7 @@ public class ControladorEscenario extends Controlador {
 	private Scene vista1;
 	private Scene vista2;
 	private ControladorMenu controladorMenu;
+	private ControladorVistas controladorVistas;
 
 	@FXML
 	private GridPane gridPane; //Organiza los componentes en filas y columnas, similar a una tabla.
@@ -66,6 +68,7 @@ public class ControladorEscenario extends Controlador {
 	private static final Integer LADO = 28;
 	private static final Integer LOBST = 56;
 	private static boolean puertaBloqueada = false;
+	private static MediaPlayer mediaPlayerEscenario;
 	
 	private Escenario escenario;
 	private Jugador jugador;
@@ -76,6 +79,8 @@ public class ControladorEscenario extends Controlador {
 		try{
 			this.ventana = ventana;
 			this.controladorMenu = controladorMenu;
+			Controlador.pararMusica();
+			reproducirMusicaEscenario();
 			ventana.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 			this.jugador = controladorMenu.getJugador();
 			try {
@@ -124,6 +129,21 @@ public class ControladorEscenario extends Controlador {
 
         // Mostrar el escenario
         mostrarEscenario(escenario.getMapa());
+    }
+
+    private void reproducirMusicaEscenario(){
+    	String pathMusica = "recursos/8_bit.mp3";
+
+        Media media = new Media(new File(pathMusica).toURI().toString());
+
+        //Media Player
+        mediaPlayerEscenario = new MediaPlayer(media);
+        mediaPlayerEscenario.setCycleCount(MediaPlayer.INDEFINITE); // Repetir en bucle
+        mediaPlayerEscenario.play(); // Iniciar reproducción
+    }
+
+    private void pararMusicaEscenario(){
+    	mediaPlayerEscenario.stop();
     }
 
     private void configurarControlesTeclado() {
@@ -349,15 +369,13 @@ public class ControladorEscenario extends Controlador {
 	}
 
     private void terminarNivel() {
+    	pararMusicaEscenario();
+    	Controlador.reproducirMusica();
     	ControladorAccesoUsuario controladorAccesoUsuario = new ControladorAccesoUsuario();
     	BDLaberinto.calcularPuntuacion(controladorAccesoUsuario.getNombreUsuario(), this);
-    	PauseTransition espera = new PauseTransition(Duration.seconds(2));
-    	espera.setOnFinished(event -> {
-        	//ventanaTop10();
-        	ventana.close();
-	        controladorMenu.mostrar();
-    	});
-    	espera.play();
+    	//ventanaTop10();
+    	ventana.close();
+        controladorMenu.mostrar();
 	}
 
 	public Integer getNumeroDeGolpes(){

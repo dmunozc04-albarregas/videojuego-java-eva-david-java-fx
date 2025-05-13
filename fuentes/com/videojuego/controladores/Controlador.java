@@ -8,8 +8,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.Alert;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;    
+
 
 public abstract class Controlador {
+
+    private static MediaPlayer mediaPlayer;
 
     @FXML
     public void initialize() {
@@ -20,6 +26,17 @@ public abstract class Controlador {
             // Si ocurre un error al cargar la fuente, se captura y muestra el mensaje de error
             e.printStackTrace();
         }
+    }
+
+    public static void reproducirMusica(){
+        String pathMusica = "recursos/pacman.mp3";
+
+        Media media = new Media(new File(pathMusica).toURI().toString());
+
+        //Media Player
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir en bucle
+        mediaPlayer.play(); // Iniciar reproducción
     }
 
     public static Scene cargarVista(String rutaFXML) {
@@ -42,5 +59,9 @@ public abstract class Controlador {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    public static void pararMusica(){
+        mediaPlayer.stop();
     }
 }
